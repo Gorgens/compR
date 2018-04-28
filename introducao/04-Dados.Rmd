@@ -1,0 +1,214 @@
+# Trabalhando com dados
+
+Neste capítulo você verá:
+
+- Importação de dados: \@ref(dados)
+- O *dataframe*: \@ref(dataframe)
+	- Filtrando um dataframe: \@ref(filtrando)
+
+## Importação de dados {#dados}
+
+Grande parte dos dados que utilizaremos em nossas análises estarão salvos em planilhas eletrônicas como Excel, LibreOffice e outros. Embora seja possível importar arquivos com extensão xls e xlsx, recomendo que seja utilizado sempre a extensão genérica csv (comma-separeted value). Todo arquivo do tipo csv possui dois elementos básicos que podem influenciar na importação:
+
+- o separador decimal
+- a tabulação (ou separador de colunas)
+
+No formato regional brasileiro, o separador decimal é a vírgula (,) e o separador de coluna é o ponto e vírgula (;). Já no formato americano, utiliza-se o ponto (.) como separador decimal e a vírgula (,) como separador de colunas. 
+
+Durante a importação de uma planilha eletrônica, pode ser necessário informar qual o separador decimal e qual o separador de colunas utilizados no arquivo, para que a leitura dos dados pelo R ocorra sem problemas. As duas principais funções que podem ser utilizadas para importar os dados armazenados em uma planilha eletrônica genérica são:
+
+> read.csv(arquivo, sep=..., dec=...)
+
+> read.table(arquivo, sep=..., dec=...)
+
+Ambas funções possuem os parâmetros que definem o separador de colunas (sep) e o separador decimal (dec). Para importar uma planilha eletrônica utilizando o comando em sua forma mais simples, verifique se:
+
+- O separador de colunas e o separador decimal do arquivo estão de acordo com as configurações regionais de seu computador.
+- O arquivo a ser importado salvo dentro do diretório vinculado ao espaço de trabalho (workspace).
+
+Faça o download do arquivo csv e o salve numa pasta dentro de seu computador: <https://github.com/Gorgens/CompR_Introducao>. Os dados podem ser vistos na tabela abaixo:
+
+```{r flowering, tidy=FALSE, echo=FALSE}
+df = read.csv("./data/flowering.csv", sep=";")
+knitr::kable(
+  head(df), caption = 'Amostra dos dados a serem importados',
+  booktabs = TRUE
+)
+```
+
+```{remark}
+Caso o arquivo a ser importado não estiver dentro do diretório vinculado ao workspace é necessário informar o caminho completo antes do nome do arquivo:
+```
+
+Se tudo estiver de acordo, a importação pode ser feita digitando com o comando:
+
+```{r df1b}
+df = read.csv("./data/flowering.csv")
+```
+
+Aparentemente, nenhum erro foi apresentado pelo console. Vamos inspecionar a variável df utilizando as funções dim() e head(). 
+
+```{r df2b}
+dim(df)
+head(df)
+```
+
+```{remark}
+Antes de iniciar as análises com os dados importados, confira inspecionando os dados. Para isto você pode usar funções como **head()**, **str()**, entre outros.
+```
+
+Fica evidente que alguma coisa não siu bem. Os dados até se parecem com a tabela \@ref(flowering), porém as colunas estão todas unidades. Este é um exemplo típico de problema com o separador de colunas.
+
+O que você acha que deu errado? Esta é fácil. O separador de colunas “,” não funcionou. Veja que a dimensão do dataframe importado é de 3124 linhas e 1 coluna. Mas nosso arquivo original possui 4 colunas! O comando head() é que nos dá a pista do separador correto. Veja que entre nossas colunas originais apareceu um “;”. Vamos rodar novamente o comando para importar a planilha eletrônica, mas agora utilizando o separador de colunas correto:
+
+
+```{remark}
+Se você não tem certeza quanto aos separadores utilizados na planilha a ser importada, inclua os parâmetros no comando!
+```
+
+Na verdade, o arquivo **flowering.csv** possui separador de colunas **;**, assim o comando de importação deveria ser construído como: 
+
+```{r df3b}	
+df = read.csv("./data/flowering.csv", sep = ";")
+```
+
+Vamos inpecionar as primeiras linhas importadas para ver se alguma coisa mudou.
+
+```{r df4b}
+head(df)
+```
+
+Agora sim. Nota-se que as colunas foram respeitadas.
+
+```{remark}
+O nome **df** é um nome arbitrário para a variável que irá armazenar os dados que estamos importando. A variável **df** será do tipo dataframe.
+```
+
+Inúmeras funções podem ser usadas com um dataframe. Elas podem ser úteis para uma rápida inspeção, quanto para descrever e conhecer a base de dados. Sempre inspecione a planilha importada para garantir que não houve problemas com o separador decimal, nem com o separador de colunas. Veja alguns exemplos de comandos úteis:
+
+```{r df5b}	
+# Retorna o número de linhas e colunas do dataframe.
+dim(df)
+
+# Retorna as primeiras linhas do dataframe.
+head(df)
+
+# Retorna as últimas linhas do dataframe.
+tail(df)
+
+# Retorna o sumário estatísticos das variáveis presentes no dataframe.
+summary(df)
+```
+
+## O *dataframe* {#dataframe}
+
+Dataframe é o objeto do R usado para armazenar dados dispostos em forma de tabela. Na prática, o dataframe é um conjunto de vetores combinados lado a lado nas colunas. Ao contrário das matrizes, as colunas de um dataframe podem ser de tipos diferentes. 
+
+```{r df6b}	
+df = read.csv("./data/flowering.csv", sep = ";", dec = ".")
+```
+
+Agora vamos inspecionar novamente a variável criada:
+
+```{r df7b}	
+dim(df)
+head(df)
+```
+
+Já lhe foi apresentado uma lista de funções que podem ser usadas para analisar um dataframe. No script abaixo estão recapitulamos algumas e adionamos outras.
+
+```{r df8b}	
+# Retorna o nome das colunas
+names(df) 
+
+# Retorna o número de linhas seguido do  número de colunas
+dim(df) 
+
+# Retorna as 6 primeiras linhas
+head(df) 
+
+# Retorna as 6 últimas linhas
+tail(df)
+
+# Retorna o número de linhas
+nrow(df) 
+
+# Retorna o número de colunas
+ncol(df) 
+```
+
+### Filtrando um dataframe {#filtrando}
+
+O acesso a elementos, linhas e colunas de um dataframe pode ser realizado da mesma maneira que as matrizes utilizando a notação de colchetes - [ ]. Execute as linhas do script abaixo no seu console. Todas foram construídas considerando o dataframe **df** que criamos a pouco.
+
+```{r df9b}	
+df[1,1]
+df[1,]
+df[10:20, ]
+```
+
+Além da notação de colchetes - [ ], existe uma notação alternativa para selecionar colunas de um dataframe: a notação de cifrão - $. Assim, a seleção da coluna 2 pode ser feita de duas maneiras. 
+
+```{r df10b}	
+# notação de [ ]
+df[,2]
+```
+
+```{r df10c}	
+# notação de $
+df$Origem
+```
+
+```{remark}
+Na notação de $, o nome da coluna a ser selecionada vem precedido do nome do dataframe separado pelo $.
+```
+
+Imagine que desejamos criar uma nova coluna no dataframe, chamada **FlorTrans**, que receberá a raiz quadrada dos valores contidos na coluna MesFlorescimento. Podemos realizar esta operação através do comando:
+
+```{r df11b}	
+df$FlorTrans = sqrt(df$MesFlorescimento)
+```
+
+Se visualizarmos os nomes das colunas do dataframe df, veremos que agora temos 5 colunas e uma delas chama-se FlorTrans:
+
+```{r df12b}	
+names(df)
+```
+
+A função **summary()** é muito utilizada para extrair rapidamente um resumo de cada coluna do dataframe.
+
+```{r df13b}	
+summary(df)
+```
+
+Interpretando a saída acima, vemos que a coluna Nome é formada por nomes de espécies. O resumo apresentou quantas vezes os 6 primeiros nomes apareceram, sendo os demais agrupados no termo Other. A coluna Origem também contém texto, e indica se as espécies levantadas são nativas (nativa) ou exóticas (exotica). No nosso dataframe temos 2487 observações nativas e 627 observações exóticas. As colunas MesFlorescimento, Fases  e FlorTrans são numéricas e por isto as principais estatísticas descritivas são apresentadas.
+
+Suponha agora, que desejamos dividir o dataframe em dois. Um dataframe contendo apenas as observações de exóticas (627) e outro contendo apenas as observações de nativas (2487). Uma alternativa é utilizarmos a notação de colchetes que vimos anteriormente, atribuindo a duas novas variáveis os elementos filtrados.
+
+```{r df14b}	
+ex = df[df$Origem == "exotica",]
+nat = df[df$Origem == "nativa",]
+```
+
+Interpretando o comando acima literalmente, solicitamos que se crie novos dataframes chamados ex e nat. Outra opção para realizar a mesma tarefa é a função **subset()**.
+
+```{r df15b}	
+ex = subset(df, Origem == "exotica")
+nat = subset(df, Origem == "nativa")
+```
+
+Ambos os comandos retornam um dataframe contendo apenas as observações solicitadas, ora exóticas, ora nativas. 
+
+```{remark}	
+Você consegue criar o comando para criar um dataframe apenas com os dados cujo MesFlorescimento maior que 10?
+```
+
+Você poderia construir o comando de duas formas:
+
+```{r df16b, eval=FALSE}	
+mf10 = df[df$MesFlorescimento > 10,]
+```
+
+```{r df17b, eval=FALSE}	
+mf10 = subset(df, MesFlorescimento > 10)
+```

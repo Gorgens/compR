@@ -1,0 +1,77 @@
+# Personalizando o uso do R
+
+Neste capítulo você verá:
+
+- Criando suas funções: \@ref(funcao)
+- Próximos passos \@ref(passos)
+
+## Criando suas funções {#funcao}
+
+Criar uma função significa encapsular um pedaço de código e atribuir um nome para que este pedaço de código possa ser reutilizado a qualquer momento. Uma função pode contar com parâmetros que modificam sua forma de atuação de acordo com o valor que ele assume. As funções uma vez criadas podem ser requisitadas pelo programador a qualquer momento dentro do código, ou até mesmo dentro de outra função. Os pacotes nada mais são que uma série de funções que após instalados e ativados passam a fazer parte do seu ambiente de trabalho.
+
+Para calcular uma raiz quadrada, por exemplo, utilizamos uma função denominada de **sqrt()**. Esta função possui um bloco de código que será chamado toda vez que digitarmos **sqrt()**.
+
+```{r funcao1}
+sqrt(9)
+```
+
+A função **sqrt()** exige um parâmetro obrigatório, denominado x, que deve ser sempre um vetor numérico. A função com seus parâmetros chamamos de sintaxe. Assim, a sintaxe completa dda função **sqrt()** é **sqrt(x)**.
+
+Ao longo do livro, aprendemos a utilizar uma série de funções. Algumas já prontamente disponíveis no R e outras adicionadas via pacotes. Também é possível criar uma função. Vamos criar uma função que calcule o diâmetro (em centímetro) de uma árvore a partir de uma idade conhecida (em anos). 
+
+A melhor forma para se criar uma função é digitar sua estrutura num script e processá-lo para deixar a função disponível no ambiente de trabalho. Vejamos o script da nossa função para calcular o diâmetro:
+
+```{r funcao2}
+estimarDiametro <- function(x, a , b, c) {
+	return((a*(1-exp(-b*x))^c))
+}
+```
+
+Nossa função se chamará estimarDiametro() e terá quatro parâmetros, todos obrigatórios: o número ou vetor numérico x e os parâmetros da função sigmoidal de Richard a, b e c. Dentro das chaves - { } - temos o bloco de código que será aplicado toda vez que chamarmos a função estimarDiametro(). No caso, o bloco de código será a função de Richard com parâmetros a, b e c, aplicado a uma variável independente x. Depois de rodar o script acima, nossa função passa a fazer parte do espaço de trabalho (veja no canto superior direito, na janela environment).
+
+Uma vez no espaço de trabalho, nossa função está disponível para ser chamada no console ou em novos scripts. Vamos fazer o teste? Calcule o diâmetro de uma árvore aos 10 anos de idade, e cujos parâmetros do modelo de Richard são: a = 15.18, b = 0.33 e c = 0.98.
+
+```{r funcao3}
+estimarDiametro(10, 15.18, 0.33, 0.98)
+```
+
+Isso mesmo! Nossa árvore possui 14.63111 centímetros de diâmetro. 
+
+Agora, crie uma função chamada volume para calcular o volume de uma árvore a partir do diâmetro, altura e fator. Observação, o diâmetro será informado em centímetros e a altura em metros. Sua função deve ter três parâmetros obrigatórios e deve ter sido construída assim:
+
+```{r funcao4}
+volume = function(dap, altura, fator){
+     return((((dap^2) * pi / 40000) * altura) / fator)
+}
+```
+
+Rode o script para criar a função volume em seu ambiente de trabalho. Confira se implementou corretamente a função, calculando o volume de uma árvore com 50 cm de diâmetro, 42 metros de altura e um fator de forma 1.5. Seu resultado deve ser igual a 5.497787 m^3^.
+
+Suponha que você não tem o diâmetro da árvore, mas sabe que a árvore possui 6 anos e 22 metros de altura. Você também sabe que os coeficientes do modelo de Richard para o crescimento do diâmetro desta espécie são: a = 15.18, b = 0.33 e c = 0.98. Como você poderia utilizar as duas funções criadas aqui neste capítulo? Veja uma sugestão:
+
+```{r funcao5}
+volume(estimarDiametro(6, 15.18, 0.33, 0.98), 22, 1.5)
+```
+
+Aqui aplicamos uma função dentro da outra. E a resposta foi 0.1984 m^3^!
+
+## Próximos passos {#passos}
+
+Ao longo deste livro você aprendeu uma série de comandos que irão ajudá-lo a utilizar o R no dia a dia de suas análises. Esse livro não é uma receita. Ele tem a pretensão de ajudar você a se tornar independente no uso do R. Isto não significa que você não precisa mais procurar ajuda, ou  conversar com um colega programador mais experiente. A independência significa que você consegue se expressar e pensar na nova língua que você acabou de aprender: a linguagem R. Espero que você seja capaz de decidir por exemplo, quando utilizar um looping; a diferenciar entre situações de looping while e looping for; a detectar quando uma importação de csv deu errado e no que você errou ao importar os dados, e por aí vai…
+
+Quando você começar a trabalhar com o R, muitas dificuldades irão surgir. A primeira análise que você for implantar no R, você irá demorar um dia todo! Mas não se assuste. A demora vem da falta de fluência. Na segunda vez que você implantar uma análise no R, já notará uma sensível melhora no seu desempenho. E assim sucessivamente até que se sinta absolutamente seguro no desenvolvimento de códigos para o R.
+
+Quando você esbarrar numa dificuldade, não se desespere nem desanime. Você tem duas saídas: pergunte a um amigo que já usa o R, ou pergunte ao Google. Isto mesmo! Digite sua dúvida no portal de pesquisas na internet. Por exemplo:
+
+> Como salvar um dataframe no r?
+
+> Como remover uma coluna do dataframe no r?
+
+Depois de algumas perguntas, você verá que grande parte das respostas sempre vem dos mesmos sites... vou deixar uma lista de sites especialmente interessantes, ok?
+
+- <http://stackoverflow.com/>
+- <http://pt.stackoverflow.com/>
+- <http://www.statmethods.net>
+- <http://ridiculas.wordpress.com>
+
+Espero que você se torne um entusiasta do R, assim como eu! Não desanime com as dificuldades iniciais e se lembre que o limite a partir de agora é você!

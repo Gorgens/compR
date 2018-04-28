@@ -1,0 +1,45 @@
+--- 
+title: "Computação em R: Introdução"
+author: 
+- "Eric B. Gorgens"
+- "Pollyanna R. C. Gorgens"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+cover-image: "./capa/cover_v2.png"
+description: "Esta é a segunda edição do livro sobre os primeiros passos na programação cietífica em R. Amadurecemos, aprendemos e ajustamos pontos que vocês, nossos leitores perceberam e nos comunicaram."
+---
+
+# Informações bibliográficas {-}
+
+Este livro está à venda em: 
+
+Esta versão foi publicada em:
+
+ISBN:
+
+Copyright: 2017 Eric Bastos Gorgens
+
+# Dedico {-}
+
+Dedico este livro aos alunos e colegas que buscaram no R a solução dos seus problemas e buscaram em mim o apoio para imergir nesse mundo chamado R.
+
+Ao ensinar, aprendi em dobro.
+
+
+# Agradecimentos {-}
+
+Agradeço ao amigo Professor Marcio Romarco de Oliveira pelo primeiro convite para que eu ministrasse um curso sobre o R.
+
+Agradeço à amiga Danitiele Cristina França Laranja pela paciência em testar os comandos e exemplos apresentados ao longo do livro.
+
+Agradeço ao amigo André Gracioso Peres da Silva pela parceria de sucesso nas construções de inúmeras soluções baseadas em R.
+
+Agradeço ao amigo e orientador Luiz Carlos Estraviz Rodriguez pelo convite para fazer doutorado, que resultou no tempo e ambiente necessário para novos aprendizados.
+
+Um agradecimento especial para Jacy (minha mãe) e para Roberto (meu sogro) por lerem e testarem a compreensão do livro.
+
+Agradeço à minha família pelo apoio: Jacy, Robert, Diana, Ellie, Roberto e Tânia.
