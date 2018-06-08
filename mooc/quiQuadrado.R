@@ -10,21 +10,20 @@
 #--------------------------------------------------------------------------------------------------
 
 # comparando tempo de florescimento de especies nativas e exoticas
- 
-df <- read.csv("flowering_alien_vs_indigen.csv", sep = ";") # o separador pode mudar de computador para computador
+
+df <- read.csv("flowering.csv", sep = ";") # o separador pode mudar de computador para computador
 head(df)
 names(df)
 
 # explorando a distribuição graficamente.
 require(ggplot2)
-ggplot(df, aes(Flowering)) + geom_histogram() + facet_wrap(~Status, nrow = 2, ncol = 1)
- 
+ggplot(df, aes(MesFlorescimento)) + geom_histogram() + facet_wrap(~Origem, nrow = 2, ncol = 1)
+
 # e pelo teste Chi-quadrado.
-m <- table(df$Status, df$Flowering)
- 
+m <- table(df$Origem, df$MesFlorescimento)
+
 (Xsq <- chisq.test(m)) # Resumo do teste
 Xsq$observed # Valores observados (o mesmo que matriz m)
 Xsq$expected # Valores esperados segundo hipótese nula
 Xsq$residuals # Resíduos de Pearson
 Xsq$stdres # Resíduos padronizados
-
