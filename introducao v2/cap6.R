@@ -1,37 +1,22 @@
-especie = 'pinus'
+sqrt(9)
+sqrt(c(4, 9, 16))
+
+dap = 23
+b0 = -0.068854
+b1 = 0.000841
+vol = b0 + b1 * dap^2
+
+volume = function(dap, b0 = -0.068854, b1 = 0.000841){
+  return(b0 + b1 * dap^2)  
+}
+
+volume(15)
+volume(15, -0.05, 0.001)
+
 dap = 23
 h = 21
+fator = 1.75
 
-if (especie == 'pinus'){
-  vol = 0.00006 * dap^1.8 * h^1.01
-  print(vol)
-} else if (especie == 'eucalipto'){
-  vol = 0.0071 + 0.000003*dap^2*h
-  print(vol)
-} else {
-  print("Não há equação desta espécie.")
-}
-
-arvores = read.csv('arvores.csv', sep = ',', dec = '.')
-
-sumDap = 0
-sumH = 0
-
-for(a in 1:dim(arvores)[1]){
-  sumH = sumH + arvores$alt[a]
-  sumDap = sumDap + arvores$dap[a]
-}
-
-print(sumDap / dim(arvores)[1])
-print(sumH / dim(arvores)[1])
-
-fun = function(x){
-  x*pi
-}
-
-resSapply = sapply(arvores[,2:3], fun)
-resLapply = lapply(arvores[,2:3], fun)
-
-str(resSapply)
-
-str(resLapply)
+AS = (dap^2)*pi/40000
+vcil = AS * h
+vol = vcil / fator
