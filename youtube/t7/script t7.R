@@ -28,6 +28,12 @@ ggplot(inv) + geom_histogram(aes(dap2012), binwidth = 10) +
   xlab('Centro de classe (cm)') + ylab('# árvores') + xlim(0, 200) +
   theme_light()
 
+# Ajustar intervalo no eixo x
+
+ggplot(inv) + geom_histogram(aes(dap2012), binwidth = 10) + 
+  xlab('Centro de classe (cm)') + ylab('# árvores') + 
+  theme_light() + scale_x_continuous(breaks = seq(0, 200, 10))
+
 # Um gráfico para cada espécie
 
 for(sp in unique(inv$cientifico)){
