@@ -5,6 +5,7 @@ O mercado de trabalho demanda profissionais que tenham desenvoltura em ambientes
 # Resumo dos resultados
 
 1. [Livro Introdução ao R](https://clubedeautores.com.br/livro/computacao-em-r)
+  1. [Versão PDF](https://www.researchgate.net/publication/330399547_Computacao_em_R_introducao_2_Edicao)
 2. [Playlist sobre R](https://www.youtube.com/playlist?list=PLLCIDTaS6A7C4Ig6gf4d66hvyvl5e3zyy)
 3. Livro Análise Experimental no R
 4. Controle estatístico de processo
