@@ -1,0 +1,5 @@
+Tipo,Numero de variaveis,Parametrico,Nao parametrico
+Dependente,2,Teste t,Mann-Whitney
+Independente,2,Teste t,Wilcoxon
+Independente,> 2,ANOVA DIC,Kruskal-Wallis
+Independente,> 2,ANOVA DBC,Friedman

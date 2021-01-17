@@ -10,22 +10,195 @@ knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 ```
 
-## R Markdown
+Os experimentos fatoriais podem ocorrer de maneira inteiramente casualizado ou em blocos casualizados. No caso de um fatorial inteiramente casualizado, a ANOVA contará com quatro fontes de variação: uma fonte de variação conhecida determinada pelo tratamento A, outra fonte de variação conhecida determinada pelo tratamento B, outra fonte de variação conhecida determinada pela interação entre os dois tratamentos e uma quarta fonte de variação desconhecida determinada pelo resíduo. O modelo estatístico do delineamento fatorial duplo inteiramente casualizado é:
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+$$Y = Xmed + TRAT A + TRAT B + (TRAT A * TRAT B) + Erro$$
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+A análise começa pela determinação das somas de quadrados total, composta pela soma de quadrados do fator 1, pela soma de quadrados do fator 2, pela soma de quadrados da interação dos dois fatores e pela soma de quadrados do resíduo. Em seguida, calculam-se os quadrados médios do fator 1, fator 2, interação e do resíduo. A estatística F será computada para cada um dos fatores, bem como sua interação. Se F calculado for superior ao F tabelado, assume-se que existe um efeito devido ao respectivo fator (ou interação), ao passo que se F calculado for inferior ao F tabelado, não há evidências suficientes para rejeitar a hipótese nula, aceitando-se a hipótese de que não existe efeito do fator (ou interação). Sendo a interação significativa, parte-se direto para o desdobramento de um fator dentro do outro. Apenas no caso de interação não significativa, considera-se o desdobramento dos fatores isolados.
 
-```{r cars}
-summary(cars)
+## O caso balanceado
+
+Neste exemplo de delineamento inteiramente casualizado em esquema fatorial temos um experimento que avaliou o efeito de dois indutores de enraizamento em duas concentrações no enraizamento de estacas de uma espécie de árvore nativa do cerrado brasileiro. Os dados podem ser resumidos através dos seguintes tópicos:
+
+- Fator 1: indutor A e indutor B
+- Fator 2: Dose 10 e 20%
+- 5 repetições
+- Variável de interesse: número médio de raízes
+
+```{r echo = FALSE, results = 'asis'}
+fatDIC1 = read.csv('./data/Experimento Fatorial Duplo DIC 1.csv')
+kable(fatDIC1, caption = "Dados de experimento em fatorial em DIC")
 ```
 
-## Including Plots
+O primeiro passo é importar o arquivo csv contendo os resultados do experimento para dentro do R. Esta tarefa pode ser realizada através do seguinte comando:
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+fatDIC1 = read.csv("./data/Experimento Fatorial Duplo DIC 1.csv")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Antes da análise estatística, exploramos os dados através dos gráficos boxplot() ou plot(). Com base nos dados do experimento em questão, vamos analisá-lo através de uma série de gráficos boxplot. Embora a concentração seja uma variável contínua, este fator possui apenas dois níveis e portanto não é suficiente para considerar uma análise de tendência utilizando regressão.
+
+```{r}
+# Considerando apenas fator 1
+boxplot(data = fatDIC1, enraizamento ~ indutor)
+
+# Considerando apenas fator 2
+boxplot(data = fatDIC1, enraizamento ~ concentracao)
+
+# Interação dos fatores
+boxplot(data = fatDIC1, enraizamento ~ indutor/concentracao)
+
+# Isolando os níveis do fator 2
+# Fixando concentracao igual a 10
+boxplot(data = fatDIC1[fatDIC1$concentracao == 10,], 
+        enraizamento ~ indutor)
+
+# Fixando concentracao igual a 20
+boxplot(data = fatDIC1[fatDIC1$concentracao == 20,], 
+        enraizamento ~ indutor)
+
+# Isolando os níveis do fator 1
+# Fixando Indutor igual a 'A'
+boxplot(data = fatDIC1[fatDIC1$indutor == "A",], 
+        enraizamento ~ concentracao)
+
+# Fixando Indutor igual a 'B'
+boxplot(data = fatDIC1[fatDIC1$indutor == "B",], 
+        enraizamento ~ concentracao)
+```
+
+
+Com base nos gráficos, é razoável apontar que o fator Indutor apresentou maior variação do que o fator Concentração. A interação também não parece influenciar o comportamento já identificado pelos fatores, quando analisados isoladamente.
+A função do pacote ExpDes.pt para análise deste tipo de experimento é a fat2.dic(). A sintaxe desta função é:
+
+```{r eval=FALSE}
+fat2.dic(fator1, fator2, resp, quali = c(TRUE, TRUE), 
+         mcomp = "tukey", fac.names = c("F1", "F2"), 
+         sigT = 0.05, sigF = 0.05)
+```
+
+Ajustando com base nos dados do experimento, o comando fica:
+
+```{r}
+require(ExpDes.pt)
+fat2.dic(fatDIC1$indutor, fatDIC1$concentracao,                        
+         fatDIC1$enraizamento, quali = c(TRUE, TRUE),
+         fac.names = c("Indutor", "Concentração"))
+```
+
+O teste Shapiro-Wilk indica que os resíduos podem ser considerados normais. Assim, o modelo estatístico é adequado e os demais resultados podem ser considerados e analisados. A interação foi não significativa, e portanto os fatores devem ser analisados de forma independente. Apenas o fator Indutor foi significativo, levando então a um desdobramento dos níveis, que indica uma média do Indutor A superior à média do Indutor B.
+
+## O caso desbalanceado
+
+Neste exemplo de delineamento inteiramente casualizado em esquema fatorial, com dados desbalanceados, temos um experimento para avaliar o enraizamento de dois tipos de substratos e duas intensidades de irrigação. Infelizmente, uma das bandejas de enraizamento foi contaminada e com fungo e portanto foi considerada perdida. Por isto, este experimento é considerado desbalanceado. Os dados podem ser resumidos através dos seguintes tópicos:
+
+- Fator 1: substrato A e B
+- Fator 2: intensidade de irrigação 10 mm e 20 mm
+- 5 repetições
+- Informação perdida: Repetição 5 do substrato A, intensidade de irrigação 10 mm
+- Variável de interesse: número médio de raízes
+
+```{r echo = FALSE, results = 'asis'}
+fatDIC2 = read.csv('./data/Experimento Fatorial Duplo DIC 2.csv')
+kable(fatDIC2, caption = "Dados de experimento em fatorial em DIC, porém desbalanceado.")
+```
+
+O primeiro passo é importar o arquivo csv contendo os resultados do experimento para dentro do R. Esta tarefa pode ser realizada através do seguinte comando:
+
+```{r}
+fatDIC2 = read.csv("./data/Experimento Fatorial Duplo DIC 2.csv", 
+                   sep = ",", dec = ".")
+```
+
+
+Assim como no caso balanceado, é fundamental analisar os dados do experimento em gráficos e buscar antecipar os resultados que serão obtidos no teste estatístico. Os mesmo gráficos do exemplo balanceado podem ser utilizados:
+
+```{r}
+# Considerando apenas fator 1
+boxplot(data = fatDIC2, enraizamento ~ substrato)
+
+# Considerando apenas fator 2
+boxplot(data = fatDIC2, enraizamento ~ irrigacao)
+
+# Interação dos fatores
+boxplot(data = fatDIC2, enraizamento ~ substrato/irrigacao)
+
+# Isolando os níveis do fator 2
+# Fixando concentracao igual a 10
+boxplot(data = fatDIC2[fatDIC2$irrigacao == 10,], 
+        enraizamento ~ substrato)
+
+# Fixando concentracao igual a 20
+boxplot(data = fatDIC2[fatDIC2$irrigacao == 20,], 
+        enraizamento ~ substrato)
+
+# Isolando os níveis do fator 1
+# Fixando Indutor igual a 'A'
+boxplot(data = fatDIC2[fatDIC2$substrato == "A",], 
+        enraizamento ~ irrigacao)
+
+# Fixando Indutor igual a 'B'
+boxplot(data = fatDIC2[fatDIC2$substrato == "B",], 
+        enraizamento ~ irrigacao)
+```
+
+Os gráficos mostram que é razoável apontar que o fator substrato apresentou maior variação do que o fator irrigacao. Na mesma linha do exemplo anterior, a interação também não parece influenciar o comportamento já identificado pelos fatores, quando analisados isoladamente. Sendo o nosso experimento desbalanceado, a função para rodar a ANOVA do tipo III é o ea2() (do pacote easyanova). A sintaxe da função é:
+
+```{r eval=FALSE}
+ea2(data, design = 1, alpha = 0.05, cov = 4, list = FALSE, 
+    p.adjust=1, plot=2)
+```
+
+
+Como já mencionado, o pacote easyanova exige que os dados sejam apresentados numa forma específica contendo apenas as colunas relevantes para a análise. No caso de um experimento fatorial duplo inteiramente casualizado, a ordem esperada das colunas é:
+
+1. Fator A
+2. Fator B
+3. Repetição
+4. Variável resposta
+
+Considerando as colunas substrato, irrigacao e enraizamento do dataframe fatDIC2. Os demais parâmetros da função ea2() serão definidos como design = 1 e plot = 2.
+
+```{r}
+require(easyanova)
+r.aov = ea2(fatDIC2[, c(1, 2, 4)], design = 1)
+```
+
+A saída da função ea2() é uma lista contendo os seguintes resultados:
+
+```{r}
+names(r.aov)
+```
+
+
+A lista acima contém os seguintes resultados:
+
+1. Análise de variância
+2. Comparação de médias do fator 1
+3. Teste de comparação múltipla do fator 1
+4. Comparação de médias do fator 2                            
+5. Teste de comparação múltipla do fator 2
+6. Comparação de médias do fator 1 dentro dos níveis do fator 2
+7. Teste de comparação múltipla do fator 1 dentro dos níveis do fator 2
+8. Comparação de médias do fator 2 dentro dos níveis do fator 1
+9. Teste de comparação múltipla do fator 2 dentro dos níveis do fator 1
+10. Análise das pressuposições
+
+A primeira saída que deve ser verificada é a análise das pressuposição, na posição 10 da lista:
+
+```{r}
+r.aov[10]
+```
+
+O teste de normalidade Shapiro-Wilk indica que não há evidência suficientes para rejeitar a pressuposição de normalidade do modelo estatístico e portanto, este é adequado para representar o experimento analisado. Desta forma, a análise de variância contido na posição 1 da lista de resultados pode ser analisado:
+
+```{r}
+r.aov[1]
+```
+
+
+O fator 1 (Indutor) foi altamente significativo, apresentando teste F inferior a 1%. Já o fator 2 (Concentração), bem como a interação não foram significativas. Como a interação não foi significativa, não há necessidade de desdobramento, e o fator 1 - Indutor pode ser analisado diretamente. Lembrando que no exemplo apresentado, o fator 1 possui apenas dois níveis e portanto o teste F é conclusivo. De qualquer maneira, o teste de médias do fator 1 pode ser obtido na posição 2 da lista de resultado.
+
+```{r}
+r.aov[2]
+```
