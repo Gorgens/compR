@@ -1,0 +1,4 @@
+Fonte de variacao,Soma de quadrados,Graus de liberdade,Quadrado medio
+Trat,SQTrat,$i-1$,$SQTotal / (i-1)$
+Residuos,SQRes,$i * (j - 1)$,$SQRes / (i * (j-1))$
+Total,SQTotal,$(i * j) - 1$,
