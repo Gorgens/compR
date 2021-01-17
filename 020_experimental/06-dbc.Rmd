@@ -10,22 +10,148 @@ knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 ```
 
-## R Markdown
+Nos experimentos em blocos casualizados (DBC), além do tratamento uma segunda fonte de variação controlada é inserida no modelo e é denominada de bloco. O bloco é inserido pelo analista para controlar uma variação esperada do ambiente, como por exemplo tipo de solo, insolação e outros. Assim a ANOVA contará com três fontes de variação: duas fontes de variação conhecidas determinada pelo tratamento e pelo bloco, e uma fonte de variação desconhecida determinada pelo resíduo. Vale destacar, que no DBC, não há interesse pela interação do bloco com o tratamento, sendo o bloco apenas para controlar uma possível variação sobre os tratamentos induzida por uma possível variação do ambiente. O modelo estatístico do delineamento em blocos casualizados é:
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+$$Y = Xmed + BLOCO + TRAT + Erro$$
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+A análise começa pela determinação das somas de quadrados total, composta pela soma de quadrados do tratamento, pela soma de quadrados do bloco e pela soma de quadrados do resíduo. Em seguida, calculam-se os quadrados médios do tratamento e do resíduo e o valor da estatística F. Se F calculado for superior ao F tabelado, assume-se que existe um efeito devido aos tratamentos, ao passo que se F calculado for inferior ao F tabelado, não há evidências suficientes para rejeitar a hipótese nula, aceitando-se a hipótese de que não existe efeito dos tratamentos. 
 
-```{r cars}
-summary(cars)
+Embora em alguns softwares o teste F para o bloco seja realizado, o mesmo não é necessário. O utilidade do bloco é é apenas isolar uma possível variação atribuída ao ambiente. Uma vez que tenha optado pelo uso do bloco, é irrelevante encontrar sua significância (ou não significância) , uma vez que não será alterado o design da análise. Sendo o efeito dos tratamentos significativo, realiza-se o desdobramento do efeito dos tratamentos através de um teste de médias se os tratamentos forem qualitativos, ou uma análise de regressão se os tratamentos forem quantitativos.
+
+Para a análise de experimentos em blocos casualizados, como não há no modelo estatístico a influência da interação, utiliza-se o pacote ExpDes.pt tanto para o caso balanceado, quanto para o desbalanceado.
+
+## O caso balanceado
+
+Para exemplificar o caso balanceado, será analisado um estudo sobre a influência de duas intensidades de desbaste no diâmetro de árvores. Os desbastes foram repetidos em 4 parcelas para cada um dos cinco blocos. Os blocos foram considerados para isolar o efeito dos diferentes tipos de solo. Os dados podem ser resumidos através dos seguintes tópicos:
+
+- Tratamento: 2 intensidades de desbaste (30% e 50%)
+- 5 Blocos
+- 4 repetições
+- Variável de interesse: diâmetro
+
+```{r echo = FALSE, results = 'asis'}
+dbc1 = read.csv('./data/Experimento DBC 1.csv')
+kable(dbc1, caption = "Dados de delineamento em blocos casualizado")
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+O primeiro passo é importar o arquivo csv contendo os resultados do experimento para dentro do R. Esta tarefa pode ser realizada através do seguinte comando:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+dbc1 = read.csv("./data/Experimento DBC 1.csv")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+Antes de partir para a análise, é fundamental explorar os dados de forma gráfica para conhecer melhor os dados e antecipar o resultado da análise estatística. A construção do gráfico ajuda na compreensão do fenômeno estudado e na validação da análise estatística escolhida. Por se tratar de um experimento com o tratamento formado por níveis qualitativos, recomenda-se o uso do boxplot().
+
+```{r}
+boxplot(data = dbc1, diametro ~ desbaste/bloco)
+```
+
+Note que os rótulo do eixo X são compostos pela união no desbaste e do bloco. Pode ser que dependendo do espaço disponível alguns rótulos sejam omitidos, mas ele devem ser lidos alternadamente, uma caixa para 30.1, outra para 50.1, depois 30.2, seguido de 50.2 e assim por diante.
+
+Os tratamentos podem ser analisados isoladamente em relação a cada bloco, utilizando um filtro para escolher qual bloco considerar.
+
+```{r}
+# Para bloco igual a 1
+boxplot(data = dbc1[dbc1$bloco == 1,], diametro~desbaste/bloco)
+
+# Para bloco igual a 2
+boxplot(data = dbc1[dbc1$bloco == 2,], diametro~desbaste/bloco)
+
+# Para bloco igual a 3
+boxplot(data = dbc1[dbc1$bloco == 3,], diametro~desbaste/bloco)
+
+# Para bloco igual a 4
+boxplot(data = dbc1[dbc1$bloco == 4,], diametro~desbaste/bloco)
+
+# Para bloco igual a 5
+boxplot(data = dbc1[dbc1$bloco == 5,], diametro~desbaste/bloco)
+```
+
+Pelo gráfico obtido, é razoável esperar que haja diferenças significativas entre as  intensidades de desbaste (30% e 50%), pois existe um distanciamento entre os interquartis especialmente nos blocos 1 e 2. Também é possível esperar que não haja um efeito significativo dos blocos. Assim, espera-se que a análise estatística do experimento corrobore a conclusão empírica baseada no interpretação do gráfico.
+
+Com a função dbc() do pacote ExpDes.pt será possível realizar toda a análise de um experimento de delineamento em blocos casualizados, inclusive desdobramentos. Toda função no R tem uma sintaxe que pode ser consultada digitando no console ? seguido do nome da função:
+
+```{r eval=FALSE}
+?dbc
+```
+
+Nas informações sobre a função ?dbc, você verá que a sintaxe básica da função dbc() é:
+
+```{r eval=FALSE}
+dbc(trat, bloco, resp, quali = TRUE, mcomp = "tukey", 
+    sigT = 0.05, sigF = 0.05)
+```
+
+
+A análise do experimento em questão pode ser então realizada pelo comando:
+
+```{r error=TRUE}
+require(ExpDes.pt)
+dbc(dbc1$desbaste, dbc1$bloco, dbc1$diametro, hvar='han')
+```
+
+
+A interpretação da saída de um delineamento em blocos casualizados é muito parecido com os experimento em DIC. A inclusão do bloco como fonte de variação, não trás nenhuma implicação já que o bloco visa apenas isolar um potencial efeito do ambiente não controlado durante a instalação do experimento.
+
+Neste primeiro exemplo, os resíduos apresentaram normalidade e o efeito dos tratamentos foi significativo. Como existem apenas dois tratamento, a significância do teste F já é conclusivo. De qualquer forma, a função dbc() realiza também um teste de médias que apenas reforça o resultado do teste F, indicando que o grupo a obteve média maior que o grupo b.
+
+## O caso desbalanceado
+
+Embora o delineamento em blocos casualizados, tenha além do tratamento, o efeito do bloco, estes são analisados de forma independente sem considerar a interação entre eles. A rigor, a definição de blocos visa apenas controlar uma fonte de variação não controlada pelo experimento, e não inferir sobre seu efeito. Desta forma, por não haver interação, o caso de DBC desbalanceado pode ser analisado através da ANOVA do Tipo I.
+
+Neste exemplo, usaremos o mesmo exemplo anterior, mas assumindo que foi perdida uma parcela devido à um incêndio: a repetição 1, do bloco 2 do tratamento intensidade de desbaste de 30%:
+
+- Tratamento: 2 intensidades de desbaste
+- 5 Blocos
+- 4 repetições
+- Variável de interesse: diâmetro
+- Parcela perdida: Tratamento 30, Bloco 2, Repetição 1.
+
+```{r echo = FALSE, results = 'asis'}
+dbc2 = read.csv('./data/Experimento DBC 2.csv')
+kable(dbc2, caption = "Dados de outro delineamento em blocos casualizado, porém neste caso desbalanceado.")
+```
+
+O primeiro passo é importar o arquivo csv contendo os resultados do experimento para dentro do R. Esta tarefa pode ser realizada através do seguinte comando:
+
+```{r}
+dbc2 = read.csv("./data/Experimento DBC 2.csv")
+```
+
+
+Mesmo no caso desbalanceado, a análise gráfica é fundamental e deve preceder qualquer análise estatística:
+
+```{r}
+boxplot(data = dbc2, diametro ~ desbaste/bloco)
+```
+
+Os tratamentos podem ser analisados isoladamente em relação a cada bloco, utilizando um filtro para escolher qual bloco considerar.
+
+```{r}
+# Para bloco igual a 1
+boxplot(data = dbc2[dbc2$bloco == 1,], diametro~desbaste/bloco)
+
+# Para bloco igual a 2
+boxplot(data = dbc2[dbc2$bloco == 2,], diametro~desbaste/bloco)
+
+# Para bloco igual a 3
+boxplot(data = dbc2[dbc2$bloco == 3,], diametro~desbaste/bloco)
+
+# Para bloco igual a 4
+boxplot(data = dbc2[dbc2$bloco == 4,], diametro~desbaste/bloco)
+
+# Para bloco igual a 5
+boxplot(data = dbc2[dbc2$bloco == 5,], diametro~desbaste/bloco)
+```
+
+
+Como já discutido anteriormente, por não haver cálculo de interação entre fontes de variação, o DBC pode ser analisado usando o pacote padrão ExpDes.pt e sua função dbc():
+
+```{r error=TRUE}
+require(ExpDes.pt)
+dbc(dbc2$desbaste, dbc2$bloco, dbc2$diametro, hvar='han')
+```
+
+O teste de Shapiro-Wilk não aponta evidências para rejeitar a hipótese de normalidade de resíduos e portanto o modelo estatístico de blocos casualizados é considerado adequado. 
