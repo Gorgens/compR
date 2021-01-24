@@ -78,3 +78,4 @@ Para reverter a transformação:
 ```
 
 
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/03-AnovaR.html)

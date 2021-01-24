@@ -155,3 +155,5 @@ dbc(dbc2$desbaste, dbc2$bloco, dbc2$diametro, hvar='han')
 ```
 
 O teste de Shapiro-Wilk não aponta evidências para rejeitar a hipótese de normalidade de resíduos e portanto o modelo estatístico de blocos casualizados é considerado adequado. 
+
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/07-fatorialDic.html)

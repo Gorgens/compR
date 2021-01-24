@@ -225,3 +225,5 @@ r.aov[8]
 ```
 
 Fique atento! O pacote easyanova não diferencia fatores qualitativos e quantitativos, analisando todos os fatores e seus desdobramentos com teste comparativo de média.
+
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/09-parcelaSub.html)

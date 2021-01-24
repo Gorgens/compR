@@ -51,3 +51,5 @@ Existem variações do boxplot considerando diferentes estatísticas na sua cons
 A linha horizontal no interior da caixa indica a mediana, ou o segundo quartil. Os limites da caixa indicam o primeiro e o terceiro quartil. Os fios do bigode (ou whiskers) indicam o máximo e o mínimo, excluindo outliers. No exemplo que apresentamos acima, não houve a presença de outliers. A função boxplot assume como outlier dados que estão acima ou abaixo de 1.5 vezes a distância inter-quartil. Estes pontos considerados *outlier* serão marcadas pontualmente no gráfico.
 
 O gráfico criado com a função boxplot() não remove os outliers, apenas exibe no gráfico. Assim, cabe a você a decisão de removê-los ou não.
+
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/05-dic.html)

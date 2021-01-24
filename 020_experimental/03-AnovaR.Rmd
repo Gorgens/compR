@@ -149,4 +149,4 @@ As funções ea1() e ea2() retornam uma lista contendo a análise de variância,
 Lembre-se! Delineamentos balanceados serão analisados no pacote ExpDes.pt (ou sua versão com saídas em inglês ExpDes). Já os delineamentos desbalanceados serão analisados com o pacote easyanova.
 
 
-
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/04-Investigando.html)

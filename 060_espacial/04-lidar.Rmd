@@ -1,0 +1,218 @@
+# LiDAR no R
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+
+# library(rgl)
+# knitr::knit_hooks$set(webgl = hook_webgl)
+```
+
+
+```{r}
+require(lidR)
+require(rgl)
+require(raster)
+```
+
+## Uma nuvem de pontos
+
+### Importanto os dados
+
+```{r}
+las = lidR::readLAS("./data/nuvem.las")
+```
+
+Outros comandos úteis no lidR.
+
+```
+las
+
+las@data
+
+las@header
+
+las@header@PHB
+
+las@header@VLR
+```
+
+O pacote lidR inclui um comando que realiza uma série de Consistências na nuvem...
+
+```{r}
+las_check(las)
+```
+
+### Visualização
+
+```{r, eval=FALSE}
+plot(las)
+
+```
+
+Visualizar os limites do arquivo...
+
+
+```{r}
+plot(las@header)
+```
+
+
+Outros comandos úteis de visualização...
+
+```
+plot(las, clear_artifacts = FALSE)
+
+plot(las, colorPalette = terrain.colors(50))
+
+plot(las, color = "Intensity")
+
+plot(las, color = "Intensity", colorPalette = heat.colors(50), trim = 800)
+
+plot(las, color = "Classification")
+
+plot(las, color = "Withheld_flag")
+
+```
+
+### Manipulando um objeto las
+
+Otendo informações de um arquivo 'las'.
+
+```
+projection(las)
+extent(las)
+proj4string(las)
+bbox(las)
+las$Z
+las$Intensity
+```
+
+
+### Filtro de pontos
+
+Filtro por atributo...
+
+```{r, webgl=TRUE}
+firstreturnover5 = filter_poi(las, Z >= 5, ReturnNumber == 1)
+# plot(firstreturnover5)
+```
+
+
+Filtro por posição relativa copa...
+
+```{r, webgl=TRUE}
+surfacepoints = filter_surfacepoints(las, 0.5)
+# plot(surfacepoints)
+```
+
+Filtro por posição relativa chão...
+
+```{r, webgl=TRUE}
+groundpoints = filter_ground(las)
+# plot(groundpoints)
+```
+
+Filtro por coordenadas...
+
+```{r, webgl=TRUE}
+avgX = mean(las$X)
+avgY = mean(las$Y)
+
+lasplot = clip_circle(las, avgX, avgY, 10)
+# plot(lasplot)
+```
+
+```{r, webgl=TRUE}
+avgX = mean(las$X)
+avgY = mean(las$Y)
+
+lasrectangle = clip_rectangle(las, avgX - 10, avgY - 5, avgX + 15, avgY + 5)
+# plot(lasrectangle)
+```
+
+Filtro por polígono de referência....
+
+```
+stand = shapefile("data/shapefiles/MixedEucaNat.shp")
+lasstand = lasclip(las, stand)
+```
+
+### Superfícies
+
+Modelo digital de terreno...
+
+```{r}
+laspmf = classify_ground(las, pmf(c(2,5), c(0.5, 1)))
+dtm = grid_terrain(laspmf, 1, knnidw())
+plot(dtm)
+```
+
+Para um superfície 3D...
+
+```{r, eval=FALSE}
+plot_dtm3d(dtm, color='red')
+```
+
+
+
+```{r}
+lascsf = classify_ground(las, csf(), F)
+dtm = grid_terrain(lascsf, 1, knnidw())
+plot(dtm)
+```
+
+Para uma superfície 3D....
+
+```{r, eval=FALSE}
+plot_dtm3d(dtm, color='red')
+```
+
+Modelo digital de altura de dossel
+
+```{r}
+lascsf = classify_ground(las, csf(), F)
+dtm = grid_terrain(lascsf, 1, knnidw())
+
+lasflat = lasnormalize(lascsf, dtm)
+
+# plot(lasflat)
+```
+
+```{r}
+chm = grid_canopy(lasflat, 1, p2r())
+plot(chm)
+```
+
+Removendo depressões espúrias...
+
+```{r}
+chmfill = grid_canopy(lasflat, 1, p2r(subcircle = 0.25))
+plot(chmfill)
+```
+
+Filtro de suavização...
+
+```{r}
+chmfocal = focal(chmfill, matrix(1,3,3), mean, na.rm=T)
+plot(chmfocal)
+```
+
+### Exportanto superfícies
+
+```{r, eval=FALSE}
+writeRaster(dtm, './data/dtm_lidr.tif')
+```
+
+
+## Catálogo de nuvens de pontos
+
+```{r}
+ctg = readLAScatalog("C:/Users/gorge/Documents/GitHub/compR/060_espacial/data")
+plot(ctg, map = TRUE)
+```
+
+
+## Próximos passos
+
+Para maiores informações acesse o website do criador do pacote [lidR](https://github.com/Jean-Romain/lidR).

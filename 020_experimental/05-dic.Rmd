@@ -175,3 +175,5 @@ dic(dic3$tratamento, dic3$altura, quali = FALSE)
 
 
 A interpretação é semelhantes aos experimentos apresentados anteriormente.
+
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/06-dbc.html)

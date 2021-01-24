@@ -9,7 +9,35 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Sumário
+
+[Sobre o livro](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/00-Intro.html)
+
+[1. Delineamentos experimentais](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/01-Delineamentos.html)
+
+[2. Pressuposições e transformações](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/02-Pressuposicoes.html)
+
+[3. ANOVA no R](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/03-AnovaR.html)
+
+[4. Investigando os dados](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/04-Investigando.html)
+
+[5. Delineamento inteiramente casualizado](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/05-dic.html)
+
+[6. Delineamento em blocos casualizados](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/06-dbc.html)
+
+[7. Fatorial duplo inteiramente casualizado](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/07-fatorialDic.html)
+
+[8. Fatorial duplo em blocos casualizados](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/08-fatorialDbc.html)
+
+[9. Parcela subdividida](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/09-parcelaSub.html)
+
+[10. Análise não paramétrica](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/10-naoParametrica.html)
+
+[11. Proximos passos](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/11-nextSteps.html)
+
 ## Sobre o livro
+
+[Webpage version](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/00-Intro.html)
 
 Bem-vindo ao mundo do R. O R não é só um software, nem se resume a uma linguagem. O R é um estilo de pesquisar, estudar e ensinar. Através de seus códigos e scripts você entrará num mundo sem limites, aberto à experimentação e à troca de experiência. Um mundo em que não existe apenas uma forma de se chegar à resposta correta, mas sim uma gama de alternativas! Você deve estar se perguntando: porque começar a trabalhar com o R? A resposta passa por algumas perspectivas interessantes.
 
@@ -26,3 +54,5 @@ Uma brilhante e vibrante comunidade. Com centenas de contribuidores e mais de do
 
 O R é multiplataforma rodando em Linux, Mac ou Windows. Ainda é possível configurar para rodar diretamente da nuvem. O R valoriza o que a empresa tem de mais valioso: você!
 Possibilidades infinitas. Com o R você não está limitado por uma sequência pré-definida de rotinas. Você pode usar todo o portfólio de códigos e soluções disponíveis na comunidade ou mesmo criar suas próprias funções. É possível inclusive combinar o R com outros recursos como uma base de dados MySQL, ou um Apache web-server, ou ainda com o Google Maps API. Qual a sua ideia?
+
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/01-Delineamentos.html)

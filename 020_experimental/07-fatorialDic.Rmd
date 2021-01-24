@@ -202,3 +202,5 @@ O fator 1 (Indutor) foi altamente significativo, apresentando teste F inferior a
 ```{r}
 r.aov[2]
 ```
+
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/08-fatorialDbc.html)

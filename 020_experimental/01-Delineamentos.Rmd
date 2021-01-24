@@ -294,3 +294,5 @@ Este tipo de ANOVA só é válido quando a interação é significativa. No enta
 2. SQ(B | A, AB) para o fator B.
 
 Assim, na prática, só é necessário preocupar com dados desbalanceados quando a interação entre fontes de variação for considerada no modelo estatístico do experimento. Ao longo dos capítulos, veremos caso a caso, quando a interação deve ou não deve ser considerada.
+
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/02-Pressuposicoes.html)

@@ -223,3 +223,4 @@ r.aov[2]
 r.aov[4]
 ```
 
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/10-naoParametrica.html)

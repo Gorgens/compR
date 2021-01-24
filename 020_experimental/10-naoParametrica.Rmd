@@ -119,3 +119,5 @@ friedman.test(x ~ desb | bloco, data = dbc.aggr)
 
 
 Segundo o teste de Friedman, existe uma diferença significativa entre os desbaste. Uma exploração gráfica dos dados, ou uma análise estatística descritiva podem auxiliar no desdobramento do tratamento.
+
+[Próximo capítulo](https://htmlpreview.github.io/?https://github.com/Gorgens/compR/blob/master/020_experimental/11-nextSteps.html)
