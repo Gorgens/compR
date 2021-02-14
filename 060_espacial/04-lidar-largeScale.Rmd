@@ -1,0 +1,61 @@
+# Large scale processing
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+
+# library(rgl)
+# knitr::knit_hooks$set(webgl = hook_webgl)
+```
+
+
+```{r}
+## source("C:\\Users\\gorge\\Documents\\GIS DataBase\\amazeco\\processing.R")
+setwd("C:\\Users\\gorge\\Documents\\GIS DataBase\\amazeco\\")
+
+require(lidR)
+require(rgl)
+require(raster)
+
+ctg = lidR::readLAScatalog("C:/Users/gorge/Documents/GIS DataBase/amazeco/las")
+plot(ctg)
+
+# retile
+opt_chunk_buffer(ctg) = 10
+opt_chunk_size(ctg) = 500
+opt_output_files(ctg) = "C:/Users/gorge/Documents/GIS DataBase/amazeco/tiles/NP_t-0015_{ID}"
+newctg = catalog_retile(ctg)
+
+
+# ground classification
+ctg = lidR::readLAScatalog("C:/Users/gorge/Documents/GIS DataBase/amazeco/tiles")
+opt_chunk_buffer(ctg) = 10
+opt_chunk_size(ctg) = 500
+opt_output_files(ctg) = "C:/Users/gorge/Documents/GIS DataBase/amazeco/tilesReclass/NP_t-0015_{ID}"
+ws <- seq(3, 12, 3)
+th <- seq(0.1, 1.5, length.out = length(ws))
+lascsf = classify_ground(ctg, csf())
+
+# terrain
+opt_output_files(lascsf) = "C:/Users/gorge/Documents/GIS DataBase/amazeco/tilesReclass/NP_t-0015_dtm{ID}"
+dtm = grid_terrain(lascsf, 1, tin())
+
+
+# normalize cloud
+lasflat = normalize_height(lascsf, dtm)
+
+# Grid metrics
+opt_output_files(lasflat) = "C:/Users/gorge/Documents/GIS DataBase/amazeco/tilesReclass/NP_t-0015_chm{ID}"
+chm = grid_canopy(lasflat, 2, p2r())
+writeRaster(dtm, 'C:/Users/gorge/Documents/GIS DataBase/amazeco/tilesReclass/NP_t-0015_dtm.tif')
+opt_output_files(lasflat) = "C:/Users/gorge/Documents/GIS DataBase/amazeco/tilesReclass/NP_t-0015_hmean{ID}"
+hmean = grid_metrics(lasflat, quantile(Z, .95), 2)
+writeRaster(dtm, 'C:/Users/gorge/Documents/GIS DataBase/amazeco/tilesReclass/NP_t-0015_dtm.tif')
+
+```
+
+
+
+## Reference
+
+https://jean-romain.github.io/lidRbook/engine.html
