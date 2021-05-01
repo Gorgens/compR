@@ -3,7 +3,7 @@ require(plotly)
 canvasX = 100
 canvasY = 100
 
-sp = 4
+sp = 100
 pop = 1000
 #padrao = 1 #Uniforme
 padrao = 2 #Desuniforme
