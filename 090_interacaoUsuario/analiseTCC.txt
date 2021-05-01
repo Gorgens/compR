@@ -1,0 +1,6 @@
+Informo que o trabalho de conclusão de curso apresentado pelo aluno Eric Bastos Gorgens precisa de algumas correções referentes ao padrão de normalização da UFVJM a saber:
+- Na capa, a universidade tem que estar em caixa alta, negrito e centralizado.
+- Na capa, o nome do curso tem que estar em caixa baixa, negrito e centralizado.
+- Na capa, o aurtor tem que estar em caixa baixa, negrito e centralizado.
+As normas da UFVJM podem ser consultadas em  http://acervo.ufvjm.edu.br/jspui/bitstream/1/936/15/manual_normalizacao_2019.pdf
+Após as correções, o documento deve ser novamente incluído no SEI e um novo ofício de encaminhamento deve ser assinado. Para o aluno ser aprovado toda a documentação deve estar completa até a data de finalização do semestre.

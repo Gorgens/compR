@@ -1,0 +1,37 @@
+Check;Pergunta;Alerta
+1;Texto da capa em fonte Times New Roman e tamanho 12?;Padronizar no trabalho, a fonte para Times New Romam tamanho 12.
+2;Na capa, a universidade está em caixa alta, negrito e centralizado?;Na capa, a universidade tem que estar em caixa alta, negrito e centralizado.
+3;Na capa, o nome do curso está em caixa baixa, negrito e centralizado?;Na capa, o nome do curso tem que estar em caixa baixa, negrito e centralizado.
+4;Na capa, o autor está em caixa baixa, negrito e centralizado?;Na capa, o autor tem que estar em caixa baixa, negrito e centralizado.
+5;Na capa, o título do trabalho está em caixa alta, negrito e centralizado?;Na capa, o título do trabalho tem que estar em caixa alta, negrito e centralizado.
+6;Na capa, a cidade está em caixa baixa, negrito e centralizado?;Na capa, a cidade tem que estar em caixa baixa, negrito e centralizado.
+7;Na capa, o ano está em negrito e centralizado?;Na capa, o ano tem que estar em negrito e centralizado.
+8;A capa está no padrão da UFVJM?;Ajustar a capa ao manual de normalização da UFVJM.
+9;Folha de rosto está no padrão da UFVJM?;Ajustar a folha de rosto ao manual de normalização da UFVJM.
+10;Folha de aprovação está presente e assinada?;Incluir a folha de aprovação assinada.
+11;O TCC contem o resumo e palavras-chave?;O TCC deve conter um resumo e palavras-chave.
+12;O TCC contem sumário e ele está formatado adequadamente?;O TCC deve conter um sumário seguindo a formatação das seções conforme norma da UFVJM.
+13;O TCC está em formato de monografia e possui as seções obrigatórias?; O formato de monografia deve conter Introdução, Referencial Teórico, Materiais e Métodos, Resultados, Discussão e Conclusões Finais.
+14;O TCC está em formato de relatório técnico e possui as seções adequadas?; O formato de relatório técnico deve conter Introdução, Densenvolvimento e Considerações Finais.
+15;Os títulos dos elementos pré-textuais como agradecimentos, resumo, sumário estão em negrito, centralizados e não numerados?;Os títulos das seções pré-textuais devem estar em negrito, centralizados e não podem ser numerados.
+16;A numeração das páginas iniciam nos elementos textuais?;A numeração das páginas devem iniciar nos elementos textuais.
+17;Os títulos das seções textuais estão em negrito, numeradas, em caixa alta e alinhadas a esquerda?;Os títulos das seções textuais devem estar em negrito, numeradas, em caixa alta e alinhadas a esquerda, sem recuo.
+18;Os títulos das subseções estão em negrito, numeradas, em caixa baixa e alinhadas a esquerda?;Os títulos das subseções devem estar em negrito, numeradas, em caixa baixa e alinhadas a esquerda.
+19;Os títulos das subsubseções estão numerados, em caixa baixa, em itálico e alinhados a esquerda?;Os títulos das subsubseções devem estar numerados, em caixa baixa, em itálico e alinhados a esquerda.
+20;As seções do texto começam no anverso (páginas ímpares)?;As seções do texto precisam começar no anverso (páginas ímpares).
+21;Tem algum simbolo separando o número da seção do título?;Não pode haver símbolo separando o número de uma seção de seu título.
+22;Entre o título da seção e o texto tem uma linha em branco?;Entre o título da seção e o texto deve haver uma linha em branco.
+23;Espaçamento do texto é 1,5?;O espaçamento do texto deve ser de 1,5.
+24;Os parágrafos começam com um recuo de 2 cm?;Todo parágrafo deve começar com um recuo de 2 cm.
+25;Existe espaçamento entre parágrafos?;Não pode haver espaçamento entre parágrafos.
+26;O texto está escrito em Times New Roman, tamanho 12?;Todo o texto deve ser escrito em Times New Roman, tamanho 12.
+27;As magens seguem o padrão de anverso (2x3x3x2) e anverso (3x3x2x2)?;As margens devem ser no anverso de 2x3x3x2 e no verso de 3x3x2x2, sendo unidade em cm e posição d,s,e,i.
+28;As legendas de figuras e tabelas estão em tamanho 10, espaçamento simples, centralizado e em negrito?;As legendas de figuras e tabelas devem estar em tamanho 10, espaçamento simples, centralizado e em negrito.
+29;As legendas estão posicionadas acima das figuras e tabelas ?;As legendas devem estar posicionadas acima das figuras e tabelas .
+30;As figuras e tabelas apresentam fonte abaixo?;As figuras e tabelas devem apresentar fonte poscionada abaixo.
+31;As figuras e tabelas estão numeradas sequencialmente, com hífen separando o número da legenda?;As figuras e tabelas devem estar numeradas sequencialmente e com hífen separando o número da legenda.
+32;As tabelas contêm apenas linhas horizontais?;As tabelas devem conter apenas linhas horizontais.
+33;Os títulos das seções pós textuais como referências, anexos e apêncides estão em negrito, caixa alta e centralizados?;Os títulos das seções pós textuais como referências, anexos e apêncides devem estar em negrito, caixa alta e centralizados.
+34;A seção que apresenta as referências chama-se Referências?;A seção deve-se chamar Referências.
+35;As referências estão alinhadas a esquerda, espaçamento simples e separadas por uma linha em branco?;As referências devem estar alinhadas a esquerda, espaçamento simples e com uma linha em branco entre referências.
+36;As referências estão em formato ABNT?;As referências devem estar em formato ABNT.
