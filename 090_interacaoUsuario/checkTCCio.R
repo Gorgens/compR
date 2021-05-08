@@ -2,14 +2,14 @@ require(svDialogs)
 
 quests = read.csv('tcc check list.csv', sep = ';', dec = '.', encoding = 'UTF-8')
 
-sink("analiseTCC.txt")
+sink("edivaldo.txt")
 
-aluno = 'Eric Bastos Gorgens'
-cat('Informo que o trabalho de conclusão de curso apresentado pelo aluno ')
+aluno = 'Edivaldo da Silva Costa'
+cat('Informo que o trabalho de conclusão de curso apresentado pelo(a) aluno(a) ')
 cat(aluno)
 cat(' precisa de algumas correções referentes ao padrão de normalização da UFVJM a saber:')
 cat("\n")
-for(q in quests$Check[1:4]){
+for(q in quests$Check){
     out = winDialog(type = c("yesno"), paste0(quests[q,2]))
     if(out == 'NO'){
       cat('- ')

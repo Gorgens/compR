@@ -1,6 +1,8 @@
 require(dplyr)
 require(tidyr)
 
+# Criar a floresta simulada
+
 nSp = 10
 nparcela = 30
 narv = 60
@@ -25,6 +27,8 @@ for(p in seq(nparcela)){
   floresta = rbind(floresta, parcela)
 }
 
+# Densidade
+
 densidade = floresta %>%
   group_by(parcela, sp) %>%
   summarise(n = n()/area) %>%
@@ -33,6 +37,7 @@ densidade = floresta %>%
 
 densidade$DR = densidade$DA / sum(densidade$DA)
 
+# Dominância
 
 dominancia = floresta %>%
   group_by(parcela, sp) %>%
@@ -41,6 +46,8 @@ dominancia = floresta %>%
   summarise(DoA = mean(AB))
 
 dominancia$DoR = dominancia$DoA / sum(dominancia$DoA)
+
+# Frequência
 
 frequencia = floresta %>% 
   group_by(parcela, sp) %>%

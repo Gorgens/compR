@@ -19,11 +19,11 @@ Check;Pergunta;Alerta
 18;Os títulos das subseções estão em negrito, numeradas, em caixa baixa e alinhadas a esquerda?;Os títulos das subseções devem estar em negrito, numeradas, em caixa baixa e alinhadas a esquerda.
 19;Os títulos das subsubseções estão numerados, em caixa baixa, em itálico e alinhados a esquerda?;Os títulos das subsubseções devem estar numerados, em caixa baixa, em itálico e alinhados a esquerda.
 20;As seções do texto começam no anverso (páginas ímpares)?;As seções do texto precisam começar no anverso (páginas ímpares).
-21;Tem algum simbolo separando o número da seção do título?;Não pode haver símbolo separando o número de uma seção de seu título.
+21;Não tem simbolo separando o número da seção do título?;Não pode haver símbolo separando o número de uma seção de seu título.
 22;Entre o título da seção e o texto tem uma linha em branco?;Entre o título da seção e o texto deve haver uma linha em branco.
 23;Espaçamento do texto é 1,5?;O espaçamento do texto deve ser de 1,5.
 24;Os parágrafos começam com um recuo de 2 cm?;Todo parágrafo deve começar com um recuo de 2 cm.
-25;Existe espaçamento entre parágrafos?;Não pode haver espaçamento entre parágrafos.
+25;Parágrafos não possuem espaçamento entre si?;Não pode haver espaçamento entre parágrafos.
 26;O texto está escrito em Times New Roman, tamanho 12?;Todo o texto deve ser escrito em Times New Roman, tamanho 12.
 27;As magens seguem o padrão de anverso (2x3x3x2) e anverso (3x3x2x2)?;As margens devem ser no anverso de 2x3x3x2 e no verso de 3x3x2x2, sendo unidade em cm e posição d,s,e,i.
 28;As legendas de figuras e tabelas estão em tamanho 10, espaçamento simples, centralizado e em negrito?;As legendas de figuras e tabelas devem estar em tamanho 10, espaçamento simples, centralizado e em negrito.
