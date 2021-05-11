@@ -2,9 +2,9 @@ require(svDialogs)
 
 quests = read.csv('tcc check list.csv', sep = ';', dec = '.', encoding = 'UTF-8')
 
-sink("edivaldo.txt")
+sink("gustavo.txt")
 
-aluno = 'Edivaldo da Silva Costa'
+aluno = 'Gustavo Ragosino da Silveira'
 cat('Informo que o trabalho de conclusão de curso apresentado pelo(a) aluno(a) ')
 cat(aluno)
 cat(' precisa de algumas correções referentes ao padrão de normalização da UFVJM a saber:')
