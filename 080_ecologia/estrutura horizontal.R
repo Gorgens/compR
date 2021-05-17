@@ -2,7 +2,6 @@ require(dplyr)
 require(tidyr)
 
 # Criar a floresta simulada
-
 nSp = 10
 nparcela = 30
 narv = 60

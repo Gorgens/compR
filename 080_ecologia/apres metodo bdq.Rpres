@@ -1,0 +1,126 @@
+Método bdq
+========================================================
+author: Prof. Eric Gorgens
+date: 17/05/2021
+autosize: true
+
+
+Agenda
+========================================================
+
+A sequência de nossa fala
+
+- Distribuição diamétrica
+- Método BDq
+- Interpretação e discussão
+
+
+Distribuição diamétrica
+========================================================
+
+```{r, echo=FALSE}
+distDiam = read.csv('./dados/distribuicaoDiametricaBdq.csv')
+distDiam
+```
+
+
+Método BDq
+========================================================
+
+1. Definir q alvo
+2. Calcular b1
+3. Calcular fator para cada classe diamétrica
+4. Somar fator
+5. Calcular área basal
+6. Definir da área basal remanescente
+7. Determinar b0
+8. Calcular distribuição diamétrica ideal
+9. Comparar distribuições diamétricas real e ideal
+
+
+Definir q_alvo e calcular b1
+========================================================
+
+```{r}
+qAlvo = 2.4
+intervaloClasse = 10.0
+b1 = -1*(log(qAlvo) / intervaloClasse)
+b1
+```
+
+
+Fator para cada classe diamétrica
+========================================================
+
+```{r}
+distDiam$fator = distDiam$CC^2 * exp(b1 * distDiam$CC)
+sumFator = sum(distDiam['fator'])
+sumFator
+```
+
+
+Definição da área basal remanescente
+========================================================
+
+```{r}
+B = sum(distDiam$AB)
+intervencao = 0
+Brem = B - (intervencao * B)
+Brem
+```
+
+
+Determinar b0
+========================================================
+
+```{r}
+b0 = log((40000 * Brem)/(pi * sumFator))
+b0
+```
+
+
+Distribuição diamétrica ideal
+========================================================
+
+```{r}
+distDiam$Nbal = round(exp(b0 + b1 * distDiam$CC), 0)
+distDiam$Ndiff = distDiam$Nbal - distDiam$Nha
+```
+
+
+Distribuição diamétrica ideal
+========================================================
+
+```{r, echo=FALSE}
+distDiam
+```
+
+
+Comparar diamétrica real com ideal
+========================================================
+
+```{r, echo=FALSE}
+require(ggplot2)
+require(gridExtra)
+
+g1 = ggplot(distDiam, aes(CC, Nha)) +
+  geom_col() + ylim(0, 350)
+
+g2 = ggplot(distDiam, aes(CC, Nbal)) +
+  geom_col() + ylim(0, 350)
+
+g3 = ggplot(distDiam, aes(CC, Ndiff)) +
+  geom_col()
+
+grid.arrange(g1, g2, g3, ncol=1)
+
+```
+
+
+Interpretação do método BDq
+========================================================
+
+```{r, echo=FALSE}
+ggplot(distDiam, aes(CC, Ndiff)) +
+  geom_col()
+```
