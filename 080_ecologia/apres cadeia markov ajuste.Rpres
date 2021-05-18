@@ -1,0 +1,101 @@
+Ajuste Cadeia de Markov
+========================================================
+author: Prof. Eric Gorgens
+date: 18/05/2021
+autosize: true
+
+Agenda
+========================================================
+
+Nossa conversa de hoje:
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+Inventário contínuo
+========================================================
+
+```{r, echo=FALSE}
+require(dplyr)
+continuo = read.csv('./dados/inventarioContinuoCorriMult.csv')
+continuo %>%
+  select(parcela, arv, cientifico.nome, dap.2012, dap.2014) %>%
+  head() %>%
+  knitr::kable()
+```
+
+Inventário contínuo
+========================================================
+
+```{r}
+continuo = continuo %>%
+  filter(comum.nome != 'morta') %>%
+  filter(comum.nome != 'liana') %>%
+  filter(dap.2012 > 10) %>%
+  filter(dap.2014 > 10)
+```
+
+Distribuição diamétrica em 2012
+========================================================
+
+```{r}
+intervaloClasse = 10.0
+diametroMin = 10.0
+
+continuo = continuo %>%
+  mutate(cc.2012 = (floor(dap.2012/intervaloClasse) * intervaloClasse) + (intervaloClasse/2))
+```
+
+Distribuição diamétrica em 2012
+========================================================
+
+```{r, echo=FALSE}
+require(ggplot2)
+
+continuo %>%
+  group_by(parcela, cc.2012) %>%
+  summarise(narv = n()) %>%
+  group_by(cc.2012) %>%
+  summarise(narv = mean(narv)) %>%
+  ggplot(aes(cc.2012, narv)) + geom_col()
+```
+
+Distribuição diamétrica em 2014
+========================================================
+
+```{r}
+continuo = continuo %>%
+  mutate(cc.2014 = (floor(dap.2014/intervaloClasse) * intervaloClasse) + (intervaloClasse/2))
+```
+
+Distribuição diamétrica em 2014
+========================================================
+
+```{r, echo=FALSE}
+continuo %>%
+  group_by(parcela, cc.2014) %>%
+  summarise(narv = n()) %>%
+  group_by(cc.2014) %>%
+  summarise(narv = mean(narv)) %>%
+  ggplot(aes(cc.2014, narv)) + geom_col()
+```
+
+Matriz de frequência
+========================================================
+
+```{r}
+require(tidyr)
+tabFreq = continuo %>%
+  group_by(cc.2012, cc.2014) %>%
+  summarise(narv = n()) %>%
+  pivot_wider(names_from = cc.2012,
+              values_from = narv)
+```
+
+Matriz de frequência
+========================================================
+
+```{r, echo=FALSE}
+tabFreq %>% knitr::kable()
+```
