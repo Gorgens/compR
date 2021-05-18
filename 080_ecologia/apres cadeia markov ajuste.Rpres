@@ -13,6 +13,7 @@ Nossa conversa de hoje:
 - Bullet 2
 - Bullet 3
 
+
 Inventário contínuo
 ========================================================
 
@@ -25,6 +26,7 @@ continuo %>%
   knitr::kable()
 ```
 
+
 Inventário contínuo
 ========================================================
 
@@ -36,6 +38,7 @@ continuo = continuo %>%
   filter(dap.2014 > 10)
 ```
 
+
 Distribuição diamétrica em 2012
 ========================================================
 
@@ -46,6 +49,7 @@ diametroMin = 10.0
 continuo = continuo %>%
   mutate(cc.2012 = (floor(dap.2012/intervaloClasse) * intervaloClasse) + (intervaloClasse/2))
 ```
+
 
 Distribuição diamétrica em 2012
 ========================================================
@@ -61,6 +65,7 @@ continuo %>%
   ggplot(aes(cc.2012, narv)) + geom_col()
 ```
 
+
 Distribuição diamétrica em 2014
 ========================================================
 
@@ -68,6 +73,7 @@ Distribuição diamétrica em 2014
 continuo = continuo %>%
   mutate(cc.2014 = (floor(dap.2014/intervaloClasse) * intervaloClasse) + (intervaloClasse/2))
 ```
+
 
 Distribuição diamétrica em 2014
 ========================================================
@@ -81,6 +87,7 @@ continuo %>%
   ggplot(aes(cc.2014, narv)) + geom_col()
 ```
 
+
 Matriz de frequência
 ========================================================
 
@@ -93,9 +100,74 @@ tabFreq = continuo %>%
               values_from = narv)
 ```
 
+
 Matriz de frequência
 ========================================================
 
 ```{r, echo=FALSE}
 tabFreq %>% knitr::kable()
+```
+
+
+Remover classes outliers
+========================================================
+
+```{r}
+for(c in 2:dim(tabFreq)[2]){
+  for(l in 1:dim(tabFreq)[1]){
+    if(l < c-1){
+      tabFreq[l, c] = 0
+    }
+    if(l > c){
+      tabFreq[l, c] = 0
+    }
+  }
+}
+```
+
+
+Matriz de frequência
+========================================================
+
+```{r, echo=FALSE}
+tabFreq %>% knitr::kable()
+```
+
+Remover classes sem passagem
+========================================================
+
+```{r}
+classeCorte = 85
+colCorte = ceiling(classeCorte / intervaloClasse)
+linhaCorte = ceiling(classeCorte / intervaloClasse)
+
+tabFreq = tabFreq[1:linhaCorte, 1:colCorte]
+tabFreq2 = tabFreq %>%
+  select(-cc.2014) %>%
+  as.data.frame()
+row.names(tabFreq2) = tabFreq$cc.2014
+```
+
+
+Matriz de frequência
+========================================================
+
+```{r, echo=FALSE}
+tabFreq2 %>% knitr::kable()
+```
+
+
+Matriz de probabilidade
+========================================================
+
+```{r}
+tabProb = apply(tabFreq2,2,function(x){round(x/sum(x), 2)})
+```
+
+
+Matriz de probabilidade
+========================================================
+
+```{r, echo=FALSE}
+tabProb %>% knitr::kable()
 ```
