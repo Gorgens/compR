@@ -1,0 +1,159 @@
+---
+title: "Comp R - 101"
+author: "Prof. Eric Gorgens - UFVJM | (DEF + PPGCF)"
+format:
+  revealjs: 
+    theme: dark
+    navigation-mode: vertical
+editor: visual
+---
+
+# Boa vindas
+
+O R é moderno, o R é flexível, o R é uma poderosa linguagem, o R é versátil e o R é grátis.
+
+## Juntos iremos
+
+-   Conversar sobre R
+-   Entender a base da linguagem
+-   Praticar leitura e escrita
+-   Discutir análises
+-   Apreder muito!
+
+## Linguagem R
+
+-   O R é uma linguagem de alto nível, baseado em linhas de comando.
+
+-   Para que o R compreenda as linhas de comando, é fundamental que o usuário a sintaxe da linguagem.
+
+## Software R
+
+-   Console + Script
+
+-   Input \> R (Memória \[Script + Console\]) \> Output
+
+Exemplo A:
+
+``` r
+2 + 3
+```
+
+Exemplo B:
+
+``` r
+df = read.csv('./dados/arvores.csv')
+df$S = df$dap^2 * pi / 40000
+write.csv(df, './dados/arvores_areaSeccional.csv')
+```
+
+# Objetos
+
+Em uma linguagem de programação, um objeto é uma entidade que representa algo do mundo real ou abstrato.
+
+Objetos são usados para representar entidades do mundo real de forma mais natural e intuitiva. Eles também permitem que os programadores reaproveitem código e criem programas mais flexíveis e robustos.
+
+## Partes de um objeto
+
+Um objeto é composto por duas partes principais:
+
+-   **Atributos:** Representam as características do objeto, como sua cor, tamanho, peso, etc.
+
+-   **Comportamentos:** Representam as ações que o objeto pode realizar, como mover, falar, etc.
+
+## Variável
+
+Uma variável é criada a partir de uma atribuição. Atribuir significa fazer com que uma variável receba um objeto qualquer, e passe a armazenar este objeto na memória do computador.
+
+```{r echo=TRUE}
+a = 2
+df = read.csv('./dados/arvores.csv')
+professor = 'eric'
+```
+
+## Memória temporária
+
+Mas onde estão as variáveis que acabei de criar?
+
+```{r echo=TRUE}
+ls()
+print(professor)
+```
+
+## Vetor
+
+```{r echo=TRUE}
+b = 6
+print(b)
+
+idade = c(2, 4, 3)
+print(idade)
+length(idade)
+```
+
+## Matriz
+
+```{r echo=TRUE}
+
+m1 = matrix(c(2, 4, 3, 1, 5, 7), nrow = 2, ncol = 3, byrow = TRUE)
+print(m1)
+dim(m1)
+```
+
+## Dataframe
+
+```{r echo=TRUE}
+
+arvores = read.csv('./dados/arvores.csv')
+head(arvores)
+tail(arvores)
+```
+
+## Mais operadores de dataframe()
+
+```{r echo=TRUE}
+
+names(arvores)
+
+dim(arvores)
+```
+
+## Mais operadores de dataframe()
+
+```{r echo=TRUE}
+
+summary(arvores)
+```
+
+## Lista
+
+```{r echo=TRUE}
+
+minhaLista = list(arvores, b, idade)
+
+length(minhaLista)
+str(minhaLista)
+```
+
+## Raster
+
+``` r
+srtm = raster('./dados/srtm.tif')
+plot(srtm)
+```
+
+Ops...
+
+```         
+Error in raster("./dados/srtm.tif") : could not find function "raster"
+```
+
+O que deu errado?
+
+## Raster
+
+```{r echo=TRUE}
+
+require(raster)
+srtm = raster('./dados/srtm.tif')
+plot(srtm)
+```
