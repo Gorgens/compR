@@ -600,10 +600,242 @@ Prof.&nbsp;Eric Gorgens - UFVJM | (DEF + PPGCF)
 <span id="cb34-3"><a href="#cb34-3"></a><span class="fu">plot</span>(srtm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="Apres-UDESC_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"><div class="footer footer-default">
+<img data-src="Apres-UDESC_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section id="gráficos-básicos" class="title-slide slide level1 center">
+<h1>Gráficos básicos</h1>
+<p>Aprenda a SEMPRE, pensar de modo gráfico!</p>
+</section>
+<section id="histograma" class="slide level2">
+<h2>Histograma</h2>
+<p>O histograma representa a distribuição de frequências ao longo da amplitude de ocorrência das observações.</p>
+</section>
+<section id="histograma-1" class="slide level2">
+<h2>Histograma</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">hist</span>(arvores<span class="sc">$</span>alt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
+<img data-src="Apres-UDESC_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<section id="dispersão" class="slide level2">
+<h2>Dispersão</h2>
+<p>Os gráficos de dispersão são representações de duas ou mais variáveis em um gráfico de pontos, no qual uma variável está disposta em função da outra.</p>
+</section>
+<section id="dispersão-1" class="slide level2">
+<h2>Dispersão</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">plot</span>(alt <span class="sc">~</span> dap, <span class="at">data =</span> arvores) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Apres-UDESC_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<section id="dispersão-2" class="slide level2">
+<h2>Dispersão</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">plot</span>(alt <span class="sc">~</span> dap, <span class="at">data =</span> arvores)</span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="fu">abline</span>(<span class="fu">lm</span>(alt <span class="sc">~</span> dap, <span class="at">data =</span> arvores))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Apres-UDESC_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
+<section id="boxplot" class="slide level2">
+<h2>Boxplot</h2>
+<p>O boxplot ou diagrama de caixa é uma representação para explorar um conjunto de dados organizados em fatores.</p>
+</section>
+<section id="boxplot-1" class="slide level2">
+<h2>Boxplot</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">boxplot</span>(alt<span class="sc">~</span>vert, <span class="at">data =</span> arvores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Apres-UDESC_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section id="exemplos" class="title-slide slide level1 center">
+<h1>Exemplos</h1>
+
+</section>
+<section id="análise-de-experimento" class="slide level2">
+<h2>Análise de experimento</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">require</span>(ExpDes.pt)</span>
+<span id="cb39-2"><a href="#cb39-2"></a>dbc1 <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">'./dados/dbc1.csv'</span>)</span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="co"># dbc(trat, bloco, resp, quali = TRUE, mcomp = "tukey", sigT = 0.05, sigF = 0.05)</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="fu">dbc</span>(dbc1<span class="sc">$</span>desbaste, dbc1<span class="sc">$</span>bloco, dbc1<span class="sc">$</span>diametro, <span class="at">hvar=</span><span class="st">'han'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>------------------------------------------------------------------------
+Quadro da analise de variancia
+------------------------------------------------------------------------
+           GL     SQ     QM      Fc    Pr&gt;Fc
+Tratamento  1 323.34 323.34 30.4546 0.000004
+Bloco       4  69.49  17.37  1.6363 0.187727
+Residuo    34 360.98  10.62                 
+Total      39 753.80                        
+------------------------------------------------------------------------
+CV = 11.09 %
+
+------------------------------------------------------------------------
+Teste de normalidade dos residuos 
+valor-p:  0.9155415 
+De acordo com o teste de Shapiro-Wilk a 5% de significancia, os residuos podem ser considerados normais.
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+Teste de homogeneidade de variancia 
+valor-p:  0.3001718 
+De acordo com o teste de han a 5% de significancia, as variancias podem ser consideradas homogeneas.
+------------------------------------------------------------------------
+
+Teste de Tukey
+------------------------------------------------------------------------
+Grupos Tratamentos Medias
+a    50      32.21285 
+ b   30      26.52659 
+------------------------------------------------------------------------</code></pre>
+</div>
+</div>
+</section>
+<section id="testes-de-hipótese" class="slide level2">
+<h2>Testes de hipótese</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">require</span>(Hmisc)</span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="fu">rcorr</span>(arvores<span class="sc">$</span>dap, arvores<span class="sc">$</span>alt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    x   y
+x 1.0 0.8
+y 0.8 1.0
+
+n= 65 
+
+
+P
+  x  y 
+x     0
+y  0   </code></pre>
+</div>
+</div>
+</section>
+<section id="testes-de-hipótese-1" class="slide level2">
+<h2>Testes de hipótese</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">shapiro.test</span>(arvores<span class="sc">$</span>dap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  arvores$dap
+W = 0.78355, p-value = 2.157e-08</code></pre>
+</div>
+</div>
+</section>
+<section id="testes-de-hipótese-2" class="slide level2">
+<h2>Testes de hipótese</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">kruskal.test</span>(dap<span class="sc">~</span>vert, <span class="at">data =</span> arvores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  dap by vert
+Kruskal-Wallis chi-squared = 42.155, df = 2, p-value = 7.019e-10</code></pre>
+</div>
+</div>
+</section>
+<section id="testes-de-hipótese-3" class="slide level2">
+<h2>Testes de hipótese</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>grupoE <span class="ot">=</span> <span class="fu">subset</span>(arvores<span class="sc">$</span>dap, arvores<span class="sc">$</span>vert <span class="sc">==</span> <span class="st">"E"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2"></a>grupoC <span class="ot">=</span> <span class="fu">subset</span>(arvores<span class="sc">$</span>dap, arvores<span class="sc">$</span>vert <span class="sc">==</span> <span class="st">"C"</span>)</span>
+<span id="cb47-3"><a href="#cb47-3"></a><span class="fu">t.test</span>(grupoE, grupoC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  grupoE and grupoC
+t = 5.0781, df = 19.48, p-value = 6.207e-05
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 17.23380 41.33287
+sample estimates:
+mean of x mean of y 
+ 50.49333  21.21000 </code></pre>
+</div>
+</div>
+</section>
+<section id="testes-de-hipótese-4" class="slide level2">
+<h2>Testes de hipótese</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>reg <span class="ot">=</span> <span class="fu">lm</span>(alt<span class="sc">~</span>dap, <span class="at">data =</span> arvores)</span>
+<span id="cb49-2"><a href="#cb49-2"></a><span class="fu">summary</span>(reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = alt ~ dap, data = arvores)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-18.1058  -2.1287   0.2512   3.5182  13.1022 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 11.59531    1.08305   10.71 8.17e-16 ***
+dap          0.37615    0.03561   10.56 1.41e-15 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.537 on 63 degrees of freedom
+Multiple R-squared:  0.6391,    Adjusted R-squared:  0.6334 
+F-statistic: 111.6 on 1 and 63 DF,  p-value: 1.412e-15</code></pre>
+</div>
+</div>
+</section>
+<section id="análises-espaciais" class="slide level2">
+<h2>Análises espaciais</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">require</span>(raster)</span>
+<span id="cb51-2"><a href="#cb51-2"></a>srtm <span class="ot">=</span> <span class="fu">raster</span>(<span class="st">'./dados/srtm.tif'</span>)</span>
+<span id="cb51-3"><a href="#cb51-3"></a>slope <span class="ot">=</span> <span class="fu">terrain</span>(srtm, <span class="at">opt=</span><span class="st">"slope"</span>, <span class="at">unit=</span><span class="st">"degrees"</span>, <span class="at">neighbors=</span><span class="dv">8</span>)</span>
+<span id="cb51-4"><a href="#cb51-4"></a></span>
+<span id="cb51-5"><a href="#cb51-5"></a><span class="fu">plot</span>(slope)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Apres-UDESC_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"></section>
+<section id="criando-funções" class="slide level2">
+<h2>Criando funções</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>dap <span class="ot">=</span> <span class="dv">23</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>b0 <span class="ot">=</span> <span class="sc">-</span><span class="fl">0.068854</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a>b1 <span class="ot">=</span> <span class="fl">0.000841</span></span>
+<span id="cb52-4"><a href="#cb52-4"></a>vol <span class="ot">=</span> b0 <span class="sc">+</span> b1 <span class="sc">*</span> dap<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb52-5"><a href="#cb52-5"></a></span>
+<span id="cb52-6"><a href="#cb52-6"></a><span class="fu">print</span>(vol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.376035</code></pre>
+</div>
+</div>
+</section>
+<section id="criando-funções-1" class="slide level2">
+<h2>Criando funções</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>volume <span class="ot">=</span> <span class="cf">function</span>(dap, <span class="at">b0 =</span> <span class="sc">-</span><span class="fl">0.068854</span>, <span class="at">b1 =</span> <span class="fl">0.000841</span>){</span>
+<span id="cb54-2"><a href="#cb54-2"></a>  <span class="fu">return</span>(b0 <span class="sc">+</span> b1 <span class="sc">*</span> dap<span class="sc">^</span><span class="dv">2</span>)  </span>
+<span id="cb54-3"><a href="#cb54-3"></a>}</span>
+<span id="cb54-4"><a href="#cb54-4"></a></span>
+<span id="cb54-5"><a href="#cb54-5"></a><span class="fu">volume</span>(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.120371</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="fu">volume</span>(<span class="dv">15</span>, <span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">0.001</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.175</code></pre>
+</div>
+</div>
 </section></section>
+<section id="agradecimento" class="title-slide slide level1 center">
+<h1>Agradecimento</h1>
+<p>Gustavo, em nome de quem agradeço ao CA da Eng. Florestal da UDESC.</p>
+<p>Agradeço à UFVJM, FAPEMIG, CNPq e Capes.</p>
+<div class="footer footer-default">
+
+</div>
+</section>
     </div>
   </div>
 

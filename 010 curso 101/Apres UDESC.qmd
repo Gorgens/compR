@@ -157,3 +157,151 @@ require(raster)
 srtm = raster('./dados/srtm.tif')
 plot(srtm)
 ```
+
+# Gráficos básicos
+
+Aprenda a SEMPRE, pensar de modo gráfico!
+
+## Histograma
+
+O histograma representa a distribuição de frequências ao longo da amplitude de ocorrência das observações.
+
+## Histograma
+
+```{r echo=TRUE}
+
+hist(arvores$alt)
+
+```
+
+
+## Dispersão
+
+Os gráficos de dispersão são representações de duas ou mais variáveis em um gráfico de pontos, no qual uma variável está disposta em função da outra.
+
+## Dispersão
+
+```{r echo=TRUE}
+
+plot(alt ~ dap, data = arvores) 
+
+```
+
+
+## Dispersão
+
+```{r echo=TRUE}
+
+plot(alt ~ dap, data = arvores)
+abline(lm(alt ~ dap, data = arvores))
+
+```
+
+
+## Boxplot
+
+O boxplot ou diagrama de caixa é uma representação para explorar um conjunto de dados organizados em fatores.
+
+## Boxplot
+
+```{r echo=TRUE}
+boxplot(alt~vert, data = arvores)
+```
+
+# Exemplos
+
+## Análise de experimento
+
+```{r echo=TRUE}
+
+require(ExpDes.pt)
+dbc1 = read.csv('./dados/dbc1.csv')
+# dbc(trat, bloco, resp, quali = TRUE, mcomp = "tukey", sigT = 0.05, sigF = 0.05)
+dbc(dbc1$desbaste, dbc1$bloco, dbc1$diametro, hvar='han')
+
+```
+
+## Testes de hipótese
+
+```{r echo=TRUE}
+require(Hmisc)
+rcorr(arvores$dap, arvores$alt)
+
+```
+
+## Testes de hipótese
+
+```{r echo=TRUE}
+
+shapiro.test(arvores$dap)
+
+```
+
+## Testes de hipótese
+
+```{r echo=TRUE}
+
+kruskal.test(dap~vert, data = arvores)
+
+```
+
+## Testes de hipótese
+
+```{r echo=TRUE}
+
+grupoE = subset(arvores$dap, arvores$vert == "E")
+grupoC = subset(arvores$dap, arvores$vert == "C")
+t.test(grupoE, grupoC)
+
+```
+
+## Testes de hipótese
+
+```{r echo=TRUE}
+
+reg = lm(alt~dap, data = arvores)
+summary(reg)
+
+```
+
+## Análises espaciais
+
+```{r echo=TRUE}
+
+require(raster)
+srtm = raster('./dados/srtm.tif')
+slope = terrain(srtm, opt="slope", unit="degrees", neighbors=8)
+
+plot(slope)
+```
+
+## Criando funções
+
+```{r echo=TRUE}
+
+dap = 23
+b0 = -0.068854
+b1 = 0.000841
+vol = b0 + b1 * dap^2
+
+print(vol)
+
+```
+
+## Criando funções
+
+```{r echo=TRUE}
+
+volume = function(dap, b0 = -0.068854, b1 = 0.000841){
+  return(b0 + b1 * dap^2)  
+}
+
+volume(15)
+volume(15, -0.05, 0.001)
+```
+
+# Agradecimento
+
+Gustavo, em nome de quem agradeço ao CA da Eng. Florestal da UDESC.
+
+Agradeço à UFVJM, FAPEMIG, CNPq e Capes.
