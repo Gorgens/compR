@@ -1,8 +1,0 @@
----
-title: "Próximos passos"
-author: "Eric Gorgens"
-date: "1/17/2021"
-output: html_document
----
-
-Mensagem final...
