@@ -4,11 +4,12 @@ Nesta página você encontra os projetos em andamento relacionados a computaçã
 
 # Resumo dos resultados
 
-1. Introdução ao R: [Versão impressa](https://clubedeautores.com.br/livro/computacao-em-r), [Versão PDF](https://www.researchgate.net/publication/330399547_Computacao_em_R_introducao_2_Edicao), [Playlist Youtube](https://www.youtube.com/playlist?list=PLLCIDTaS6A7C4Ig6gf4d66hvyvl5e3zyy)
-2. Análise experimental: [Versão digital](https://gorgens.github.io/compR-experimental/)
-3. Testes de hipótese no R
-4. Controle estatístico de processo no R
-5. Análise de risco
-6. Análises espaciais
-7. Biometria
-8. Ecologia
+101 Introdução ao R: [Versão impressa](https://clubedeautores.com.br/livro/computacao-em-r), [Versão PDF](https://www.researchgate.net/publication/330399547_Computacao_em_R_introducao_2_Edicao), [Playlist Youtube](https://www.youtube.com/playlist?list=PLLCIDTaS6A7C4Ig6gf4d66hvyvl5e3zyy)
+201 Análise experimental: [Versão digital](https://gorgens.github.io/compR-experimental/)
+202 Testes de hipótese no R
+301 Controle estatístico de processo no R
+401 Análises espaciais
+501 Ecologia
+601 Biometria
+602 Manejo florestal
+
