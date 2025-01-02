@@ -1,0 +1,167 @@
+---
+title: "População"
+output: html_notebook
+---
+
+```{r}
+require(ggplot2)
+```
+
+
+## De árvore para população
+
+Imagine uma grande quantidade de árvores, de uma mesma espécie, mas que com o tempo se reproduzem formando mais árvores. Estas árvores que se reproduzem já estão na sua maturidade sexual, ao passo que os indivíduos recêm produzidos, ainda estão jovens. Vários indivíduos de uma mesma espécie, em estágios de vida diferentes, capazes de se reproduzirem, formam uma população.
+
+Se não existe nenhum fator limitante, é de se esperar uma população cresça em direção ao infinito, num ritmo exponencial. Conhecendo o tamanho atual da população e sua taxa de crescimento é possível estimar qual será o tamanho da população em qualquer momento no futuro.
+
+$$N_t = R^t N_0$$
+
+em que R é a taxa de crescimento, N_0 é o tamanho inicial da população e t indica o tempo.
+
+R pode ser qualquer valor que represente uma taxa de crescimento por unidade de tempo. Imagine uma taxa de 2 indivíduos novos por dia, para cada indivíduos existente. Isto é um R = 2.
+
+Assim, se existem 4 indivíduos, um dia depois existirão 8:
+
+$$N_t = 2^1 * 4$$
+
+Dois dias depois existirão 16:
+
+$$N_t = 2^1 * 8$$
+
+ou
+
+$$N_t = 2^2 * 4$$
+
+Na primeira equação, o ponto de partida foram os 8 indivíduos existentes ao final do dia 1. Na segunda equação, o ponto de partida foram os 4 indivíduos existentes no dia inicial.
+
+```{r}
+t = seq(1, 10)
+N0 = 1
+R = 2
+
+Nt = R^t * N0
+
+populacao = data.frame(t, Nt)
+ggplot(populacao, aes(t, Nt)) + 
+  geom_point() + 
+  xlab('Tempo em anos') + 
+  ylab("População em indivíduos") + 
+  theme_bw()
+
+```
+
+
+## Taxa de crescimento
+
+Um número pode ser reescrito de diversas formas. Por exemplo, `R = 2` é igual a `R = 1 + 1`, que é igual a `R = 4/2`, que é igual a `R = e^0.698`, e que é igual a muitas outras formas de expressões numéricas.
+
+Estudos de crescimento, historicamente expressam a taxa de crescimento como o expoente da constante de Euler. Desta forma, o modelo pode ser assim reescrito:
+
+$$N_t = N_0 e^{rt}$$
+
+em que `R` foi reescrito usando a forma `e^r`.
+
+O ponto mais importante desta transformação, é que `r` passa a indicar a taxa de crescimento natural intrínseco a uma população.
+
+## O crescimento
+
+Assumindo que a população começa com um indivíduo ($N_0 = 1$), a expressão pode ser reescrita como:
+
+$$N_t = e^{rt}$$.
+
+Aplicando logatirmo natural de ambos os lados tem-se:
+
+$$ln(N_t) = rt$$.
+
+Dividindo ambos os lados por um valor que tende a `t` tem-se o conceito de derivação do calculo:
+
+$$\frac{dlnN}{dt} = r$$
+
+que é igual a:
+
+$$\frac{dN}{Ndt} = r$$
+
+que é igual a:
+
+$$\frac{dN}{dt} = rN$$
+
+## Capacidade de suporte
+
+Apesar de que a ideia de crescimento populacional exponencial seja matematicamente fácil de compreender, na realidade uma população não é capaz de crescer forma exponencial eternamente. O crescimento expoenencial infinito não é possível, porque os recursos que sustentam esta população são finitos.
+
+Aqui surge o conceito de competição intraespecífica. Este conceito define que a performance reprodutiva dos individíduos de uma população depende da quantidade de indivíduos que existem nela. Em outras palavras, o conceito de competição intraespecífica diz que a taxa de crescimento `r` diminui a medida que o número de indivíduos aumenta.
+
+A noção ecológica é fácil de entender, e é conhecida como capacidade de suporte. Imagine um local que comporta 100 árvores. Se existem apenas 10 indivíduos, eles terão espaço e condições mais que de sobra, e por isto, terão uma taxa de crescimento alta. Se existirem 200 árvores neste mesmo espaço, não haverá espaço e condições para todos, resultando na queda da taxa de crescimento. 
+
+
+```{r}
+
+t = seq(1, 10)
+N0 = 1
+r = 0.56
+
+Nt = N0 * exp(r*t)
+K = rep(100, 10)
+
+populacao = data.frame(t, Nt, K)
+populacao
+```
+Colocando num gráfico percebe-se a forma exponencial, no qual a capacidade de suporte não influencia em nada a taxa de crescimento, permitindo que mesmo acima desta capacidade, a população continue crescendo.
+
+```{r}
+ggplot(populacao, aes(t, Nt)) + 
+  geom_point() +
+  geom_line(aes(t, K), colour='red') +
+  xlab('Tempo em anos') + 
+  ylab("População em indivíduos") + 
+  theme_bw()
+```
+
+
+Entendendo que o valor de r deveria depender do valor de N, a taxa de crescimento
+
+$$\frac{dN}{dt} = rN$$
+
+pode ser reescrita como:
+
+$$\frac{dN}{dt} = [f(N)]N$$
+
+É justamente este $f(N)$ que leva a diferentes formas de representar como r varia com o tamanho populacional, resultando num padrão sigmoidal para o crescimento populacional. Crescimento signoidal é resultando justamente de uma taxa que varia com o tamanho de N:
+
+
+$$\frac{dN}{dt} = rN(\frac{(K-N)}{K})$$
+
+em que K é a capacidade de suporte, N é o número de indivíduos e r a taxa de crescimento natural.
+
+
+```{r}
+
+t = seq(1, 25)
+
+N0 = 1
+r = 0.56
+K = 100
+
+Nt = c()
+dN_list = c()
+N = N0
+
+for(i in t){
+  dN = r * N*((K - N)/K)
+  Nt[i] = N + dN
+  N = Nt[i]
+  dN_list[i] = dN
+}
+
+populacao = data.frame(t, Nt, dN_list, K = rep(K, 25))
+
+ggplot(populacao, aes(t, Nt)) + 
+  geom_point() +
+  geom_line(aes(t, K), colour='red') +
+  geom_line(aes(t, dN_list), colour='gray') + 
+  theme_bw()
+
+```
+
+
+

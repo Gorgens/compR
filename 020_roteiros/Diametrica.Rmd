@@ -1,0 +1,105 @@
+---
+title: "Estrutura diamétrica"
+output: html_notebook
+---
+
+```{r}
+require(tidyr)
+```
+
+```{r, echo=FALSE}
+inv2 = read.csv('inventario2.csv')
+parcela1 = inv2 %>%
+	filter(parcela == 1)
+```
+
+
+A estrutura paramétrica é analisada com base nas estimativas dos parâmetros que expressam tamanho (ex: diâmetro, altura, área basal, etc) ou biomassa (volume, biomassa, etc) das árvores. A estrutura diamétrica é mais utilizada que a estrutura volumétrica devido à rápida assimilação por parte dos profissionais florestais. É facil associar a distribuição diamétrica com tipologias vegetais, estágios sucessionais, estados de conservação, regimes de manejo, processos de dinâmica de crescimento e produção e grupos ecológicos. O diâmetro acabou se consagrando como uma variável importante na descrição da estrutura florestal, como também na comercialização da madeira. Assim, conhecer a distribuição diamétrica é fundamental!
+
+A distribuição diamétrica agrupa as árvores em grupos com base nos diâmetros. Em outras palavras, conta-se quantas árvores possuem o diâmetro dentro de um determinado intervalo. Imagine que tenhamos classes de 10 em 10 cm. Assumindo que a escala dos diâmetros se inicia no 0, a primeira classe iria de 0 a 10 cm. A segundo classe iria de 10 a 20 cm. A terceira classe iria de 20 a 30 cm, e assim por adiante. 
+
+Para que o limite superior de uma classe não coincida com o limite inferior da classe seguinte, adota-se o conceito matemático de intervalo aberto para o limite superior e intervalo fechado para o limite inferior. Desta forma, a primeira classe vai de 0 até muito próximo a 10 cm, mas sem incluir o número 10, que faz parte da segunda classe.
+
+Para construir a distribuição diamétrica é necessário medir as árvores existentes na área de interesse. Medir árvores é uma atribuição do inventário florestal, como já visto em seções anteriores. Veja as medições realizadas numa pequena área de 1 ha.
+
+```{r}
+parcela1
+```
+
+O primeiro passo para obter a distribuição diamétrica é construir as classes e seus respectivos intervalos. Para isto é necessário conhecer quais os valores de mínimo e máximo presentes entre as árvores medidas. Das 27 árvores medidas, a menor apresentou diâmetro de aproximadamente 11 cm e a maior apresentou diâmetro de aproximadamente 143 cm. Assim, seguindo o intervalo de 10 em 10 cm, a primeira classe para representar os dados medidos será a classe de 10 a 20 cm, e a última classe será de 140 a 150 cm. Para facilitar a menção a cada uma das classes, utiliza-se o valor numérido que representa o seu valor central, calculado pela média entre os limites inferior e superior:
+
+$$\frac{limInf + limSup}{2}$$
+
+A classe de 10 a 20 cm por exemplo, passará a ser representada pelo seu centro 15. A distribuição diamétrica da área estudada, poderá ser representada por 14 classes. Os centros de classe serão: `15  25  35  45  55  65  75  85  95 105 115 125 135 145`.
+ 
+```{r}
+limInf = seq(10, 140, 10)
+limInf
+
+limSup = seq(20, 150, 10)
+limSup
+
+centro = seq(15, 145, 10)
+centro
+```
+
+O próximo passo é distribuir cada uma das árvores entre as possíveis classes de diâmetro. Isto pode ser feito comparando o diâmetro da árvore com os limites inferior e superior das diferentes classes. A árvore irá pertencer à classe cujo diâmetro for maior que o limite inferior e menor que o limite superior. 
+
+Imagine uma árvore com diâmetro 16 cm. Se compararmos o dap da árvore com os valores inferiores, têm se que 16 somente é superior ao limite inferior da classe 1 (TRUE indica verdadeiro).
+
+
+```{r}
+dap = 16
+dap >= limInf
+```
+
+Agora, comparando o dap com os limites superiores, tem-se que 16 é inferior a todos os limites superiores das classes presentes na área.
+```{r}
+dap = 16
+dap < limSup
+```
+
+A árvore com `dap = 16` pertencerá apenas a uma classe, e esta será a classe que satisfaz às duas condições ao mesmo tempo. Apenas a primeira classe satisfaz a ambos os critérios ao mesmo tempo.
+
+```{r}
+(dap >= limInf) & (dap < limSup)
+```
+
+Para determinar a classe, basta buscar qual o centro que representa a posição TRUE da condição dupla.
+
+```{r}
+centro[(dap >= limInf) & (dap < limSup)]
+```
+
+
+Agora sim é possível construir uma função para verificar o centro de classe de qualquer árvore que tenha dap. Os passos feitos acima podem ser facilmente encapsulados numa função totalmente customisável:
+
+```{r}
+centroClasse <- function(x, dmin = 0, dmax = 150, intervalo = 10) {
+  limInf = seq(dmin, dmax-intervalo, intervalo)
+  limSup = seq(dmin+intervalo, dmax, intervalo)
+  centro = seq(dmin+intervalo/2, dmax-intervalo/2, intervalo)
+  return(centro[(x >= limInf) & (x < limSup)])
+}
+```
+
+Com o apoio da função `sapply()`, é possível aplicar a função de determinação do centro de classe para todas as árvores do inventário:
+
+```{r}
+parcela1$cc = sapply(parcela1$dap, centroClasse)
+```
+
+Ao analisar a base dados, verifica-se que agora, cada árvores está associada a um centro de classe (nova coluna `cc`). E construir a distribuição diamétrica é contar quantas árvores estão presentes em cada classe, representadas na base da dados pelo centro.
+
+```{r}
+area = 0.04
+nparcelas = length(unique(parcela1$parcela))
+
+freqDiam = parcela1 %>% 
+  group_by(parcela, cc) %>%
+  summarise(freq = n()/area) %>%
+  group_by(cc)
+
+freqDiam
+```
+

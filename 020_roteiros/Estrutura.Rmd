@@ -1,0 +1,142 @@
+---
+title: "Estrutura da floresta"
+output: html_notebook
+---
+
+```{r}
+require(dplyr)
+```
+
+## Inventário
+
+O primeiro passo para se conhecer uma floresta é realizar o inventário florestal. Por meio de um método amostral, as árvores da comunidade são medidas e as informações coletadas são armazenadas em uma planilha. Várias informações podem ser medidas, e a escolha de quais informações são relevantes depende do objetivo do inventário florestal. Se o objetivo foi determinar o estoque de madeira presente na floresta, certas caracterśticas precisam ser medidas. Se o objetivo por conhecer sobre a diversidade de espécies arbóreas da floresta, outras informações precisarão ser medidas. Lembre-se sempre que numa planilha com dados de inventário, cada linha representa uma árvore (ou fuste), e cada coluna representa uma informação importante a cerca das árvores que deverão ser medidas em campo.
+
+Veja dois inventários florestais realizados em locais diferentes da Amazônia. No primeiro inventário, 12255 árvores foram medidas. E para cada árvore, 9 informações foram registradas:
+
+- parcela: local onde a árvore foi medida
+- comum: nome popular da espécie
+- cientifico: nome científico da espécie
+- familia: Família botânica a qual a espécie pertence
+- dap: diâmetro a altura de 1,30 metros do solo
+- hc: altura comercial da árvore
+- ht: altura total da árvore
+- vertical: estrato vertical ao qual a árvore se encontra
+- luminosidade: grau de exposição à luz da árvore
+
+```{r}
+inv1 = read.csv('inventario1.csv')
+head(inv1)
+```
+
+No segundo inventário, 190 árvores foram medidas. E para cada árvore, 12 informações foram registradas:
+
+- parcela: local onde a árvore foi medida
+- placa: número de identificação da árvore
+- codigo: código da espécie dentro da base de dados da empresa
+- comum: nome popular da espécie
+- cap: circunferência a altura de 1,30 metros do solo
+- dap: diâmetro a altura de 1,30 metros do solo
+- hc: altura comercial da árvore
+- g: área seccional da árvore
+- v: volume de madeira da árvore
+- cientifico: nome científico da espécie
+- familia: Família botânica a qual a espécie pertence
+- dd: classe diamétrica a qual a árvore pertence
+
+```{r}
+inv2 = read.csv('inventario2.csv')
+head(inv2)
+```
+
+## Descrever uma floresta
+
+Note que algumas informações foram coletadas em ambos os inventários, enquanto que outras informações não. Nota-se também que a quantidade de árvores medidas no primeiro inventário foi muito maior do que as medidas no segundo inventário. Estas diferenças não serão exploradas neste momento. Mas fica evidente que o objetivo do inventário é crucial para entender quais informações serão coletadas.
+
+As informações disponíveis em ambos os inventários são:
+
+- parcela
+- comum
+- cientifico
+- familia
+- dap
+- hc
+
+É possível utilizar estas informações para caracterizar cada uma das florestas, e desta forma, compreender as similaridades e diferenças. As informações de `comum`, `científico` e `familia` falam sobre as espécies presentes nas florestas analisadas. O `dap` e `hc` falam sobre o tamanho das árvores. Estas informações podem ser cruzadas para melhor descrever e compreender as características de cada uma das florestas por meio da estrutura horizontal.
+
+## Estrutura horizontal
+
+A estrutura horizontal é composta por três componentes:
+
+- Frequencia: mede o grau de ocorrência de cada espécie nas unidades amostrais.
+- Densidade: também chamada de abundância, mede o número de indivíduos de cada espécie por hectare. 
+- Dominância: mede o grau de ocupação da área por uma determinada espécie.
+
+### Frequencia
+
+```{r}
+frequencia = inv1 %>% 
+  group_by(parcela, cientifico) %>%
+  summarise(N = n()) %>%
+  group_by(cientifico) %>%
+  summarise(FA = n()) %>%
+  arrange(desc(FA))
+
+head(frequencia)
+```
+
+```{r}
+frequencia$FR = frequencia$FA / sum(frequencia$FA)
+
+head(frequencia)
+```
+
+### Densidade
+
+
+```{r}
+area = 1
+
+densidade = inv1 %>%
+  na.omit(cientifico) %>%
+  group_by(parcela, cientifico) %>%
+  summarise(n = n()/area) %>%
+  group_by(cientifico) %>%
+  summarise(DA = mean(n)) %>%
+  arrange(desc(DA))
+
+head(densidade)
+```
+
+
+```{r}
+densidade$DR = densidade$DA / sum(densidade$DA)
+head(densidade)
+```
+
+### Dominância
+
+```{r}
+inv1 = inv1 %>%
+  mutate(g = pi*dap^2/40000)
+```
+
+
+```{r}
+dominancia = inv1 %>%
+  group_by(parcela, cientifico) %>%
+  summarise(AB = sum(g)/area) %>%
+  group_by(cientifico) %>%
+  summarise(DoA = mean(AB)) %>%
+  arrange(desc(DoA))
+
+head(dominancia)
+```
+
+```{r}
+dominancia$DoR = dominancia$DoA / sum(dominancia$DoA)
+
+head(dominancia)
+```
+
+
+

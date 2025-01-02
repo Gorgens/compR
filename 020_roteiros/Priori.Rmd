@@ -1,0 +1,65 @@
+---
+title: "Comparando parâmetros de crescimento"
+output: html_notebook
+---
+
+```{r}
+require(rstanarm)
+require(dplyr)
+```
+
+O inventário florestal é a principal fonte de dados para subsidiar o manejo florestal e, por conseguinte, o planejamento da exploração florestal. Na impossibilidade de se medir toda a floresta, utilizam-se desenhos amostrais para obter estimativas representativas da população de interesse, seja em termos de volume, área basal ou outra variável de interesse. O inventário também pode ser utilizado para avaliar a situação ou modificações na arquitetura, estrutura, composição florística ou impacto da exploração/tratamentos.
+
+No inventário contínuo a amostragem por parcelas permanentes é o procedimento recomendado e o mais empregado para inferir sobre mudanças ocorridas na floresta. Medições sucessivas permitem analisar (a) ingresso: árvore viva que na medição anterior possuía diâmetro inferior ao nível de inclusão e que na medição atual possui diâmetro igual ou superior; (b) mortalidade: árvore viva na ocasião anterior de monitoramento e que estiver morta na ocasião seguinte; e (c) crescimento: Cr = ((Param_t)/(Param_{t-1}) - 1)*100.
+
+## A dúvida
+
+```{r}
+duvida = read.csv('dados/tapajos.csv')
+duvida = duvida %>% filter(!is.na(ida))
+```
+
+
+O órgão ambiental do Pará, acabeu de receber um inventário como parte de um processo de intervenção ambiental. Com base no inventário, a empresa considerou para o manejo, uma taxa de crescimento diamétrica de `r mean(na.omit(duvida$ida))` cm/ano.
+
+```{r}
+head(duvida)
+```
+
+
+## A referência
+
+```{r, echo=FALSE}
+ref = read.csv('dados/cauaxi.csv')
+ref = ref %>% filter(!is.na(ida))
+```
+
+
+O orgão, ficou com dúvida sobre o valor e decidiu comparar com os valores obtidos por um trabalho de mestrado realizado numa área de floresta na região de Paragominas. Neste trabalho, o incremente médio diamétrico foi de `r mean(na.omit(ref$ida))` cm/ano e um desvio de `r sd(na.omit(inv$ida))`.
+
+```{r}
+head(ref)
+```
+
+
+O analista deseja saber se o valores de incremento apresentado pela empresa está dentro do que se conhece sobre a floresta Amazônica. Para isto, ele vai usar a estatisticas Bayesiana para analisar os dados. O conhecimento do mestrado será considerado o que na estatistica Bayesiana se chama probabilidade *a priori*, e o inventario apresentado sera considerado novas evidência. A análise será feita comparando os valores a *priori* com os valores a *posteriori*.
+
+
+```{r, cache=TRUE}
+post = stan_glm(ida ~ 1, 
+                family = gaussian(link = 'identity'), 
+                data = duvida,
+                prior_intercept = normal(0.43, 0.80))
+```
+
+As novas observações atualizaram nosso conhecimento sobre crescimento da floresta de `r mean(na.omit(ref$ida))` para `r post$coefficients[1]`.
+
+```{r}
+post
+```
+
+Numa comparação gráfica, percebe-se que a probabilidade *a priori* ainda engloba a probabilidade atualizada, indicando que existe confiança de que os dados atuais estão dentro do esperado.
+
+```{r}
+posterior_vs_prior(post, prob = 0.9)
+```

@@ -1,0 +1,191 @@
+parcela,placa,codigo,comum,cap,dap,hc,g,v,cientifico,familia,dd
+1,1,155,Castanheira,450,143.24,20,1.6114,22.5602,"Bertholletia excelsa Kunth,",Lecythidaceae,145
+1,2,546,Ucuúba,35,11.14,10,0.0097,0.0682,"Virola surinamensis (Rol,) Warb,",Myristicaceae,15
+1,3,137,Caripé,73,23.24,9,0.0424,0.2672,"Couepia paraensis (Mart, & Zucc,) Benth, subsp, glaucescens (Spruce ex Hook,f,) Prance",Chrysobalanaceae,25
+1,4,415,Pama,42,13.37,12,0.014,0.1179,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+1,5,516,Sumauma preta,110,35.01,15,0.0963,1.011,"Ceiba samauma (Mart,) K, Schum,",Malvaceae,35
+1,6,291,Itaúba,93,29.6,16,0.0688,0.7709,"Mezilaurus itauba (Meisn,) Taub, ex Mez",Lauraceae,25
+1,7,137,Caripé,56,17.83,9,0.025,0.1572,"Couepia paraensis (Mart, & Zucc,) Benth, subsp, glaucescens (Spruce ex Hook,f,) Prance",Chrysobalanaceae,15
+1,8,308,Jitó,55,17.51,10,0.0241,0.1685,Guarea macrophylla Vahl,Meliaceae,15
+1,9,105,Cacau,44,14.01,7,0.0154,0.0755,"Theobroma cacao L,",Malvaceae,15
+1,10,546,Ucuúba,57,18.14,7,0.0259,0.1267,"Virola surinamensis (Rol,) Warb,",Myristicaceae,15
+1,11,155,Castanheira,345,109.82,18,0.9472,11.9344,"Bertholletia excelsa Kunth,",Lecythidaceae,105
+1,12,160,Caucho,120,38.2,13,0.1146,1.0428,"Castilla ulei Warb,",Moraceae,35
+1,13,154,Castanharana vermelha,120,38.2,10,0.1146,0.8021,"Eschweilera odora (Poepp, Ex Berg,) Miers",Lecythidaceae,35
+1,14,307,Jequitibá,254,80.85,15,0.5134,5.3907,Cariniana micrantha Ducke,Lecythidaceae,85
+1,15,264,Guariúba,98,31.19,14,0.0764,0.749,"Clarisia racemosa Ruiz & Pav,",Moraceae,35
+1,16,222,Envireira,92,29.28,6,0.0674,0.2829,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,25
+1,17,168,Cedro rosa,198,63.03,12,0.312,2.6206,"Cedrela odorata L,",Meliaceae,65
+1,18,716,Manitê,50,15.92,8,0.0199,0.1114,"Brosimum alicastrum Sw, subsp, bolivarense (Pittier) C, C, Berg",Moraceae,15
+1,19,154,Castanharana vermelha,176,56.02,19,0.2465,3.2784,"Eschweilera odora (Poepp, Ex Berg,) Miers",Lecythidaceae,55
+1,20,308,Jitó,38,12.1,8,0.0115,0.0643,Guarea macrophylla Vahl,Meliaceae,15
+1,21,69,Bacuri,46,14.64,10,0.0168,0.1179,"Garcinia acuminata Planch, & Triana",Clusiaceae,15
+1,22,54,Aquariquara,57,18.14,11,0.0259,0.1991,"Minquartia guianensis Aubl,",Olacaceae,15
+1,23,348,Maçaranduba,72,22.92,16,0.0413,0.462,"Manilkara bidentata (A, DC,) subsp, surinamensis (Miq,) T, D, Penn",Sapotaceae,25
+1,24,291,Itaúba,52,16.55,9,0.0215,0.1356,"Mezilaurus itauba (Meisn,) Taub, ex Mez",Lauraceae,15
+1,25,255,Garapeira,200,63.66,17,0.3183,3.7879,Apuleia molaris Spruce ex Benth,Caesalpiniaceae,65
+1,26,536,Tauari,118,37.56,19,0.1108,1.4737,"Couratari macrosperma A, C, Sm,",Lecythidaceae,35
+1,27,160,Caucho,251,79.9,12,0.5013,4.2113,"Castilla ulei Warb,",Moraceae,75
+2,1,222,Envireira,40,12.73,12,0.0127,0.107,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+2,2,137,Caripé,38,12.1,9,0.0115,0.0724,"Couepia paraensis (Mart, & Zucc,) Benth, subsp, glaucescens (Spruce ex Hook,f,) Prance",Chrysobalanaceae,15
+2,3,7,Abiurana,50,15.92,13,0.0199,0.181,"Pouteria reticulata (Engl,) Eyma",Sapotaceae,15
+2,4,105,Cacau,42,13.37,10,0.014,0.0983,"Theobroma cacao L,",Malvaceae,15
+2,5,415,Pama,61,19.42,12,0.0296,0.2487,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+2,6,362,Maparajuba,43,13.69,15,0.0147,0.1545,"Manilkara paraensis (Huber) Standl,",Sapotaceae,15
+2,7,48,Apuí,280,89.13,17,0.6239,7.4243,"Ficus adhatodifolia Schott ex Spreng,",Moraceae,85
+2,8,160,Caucho,35,11.14,11,0.0097,0.0751,"Castilla ulei Warb,",Moraceae,15
+2,9,764,Maraximbé,140,44.56,14,0.156,1.5285,"Vouarana guianensis Aubl,",Sapindaceae,45
+2,10,222,Envireira,42,13.37,10,0.014,0.0983,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+2,11,134,Carapanaúba,208,66.21,19,0.3443,4.579,"Aspidosperma megalocarpon Müll, Arg,",Apocynaceae,65
+2,12,157,Catuaba,57,18.14,13,0.0259,0.2353,"Qualea tessmannii Mildbr,",Vochysiaceae,15
+2,13,536,Tauari,52,16.55,10,0.0215,0.1506,"Couratari macrosperma A, C, Sm,",Lecythidaceae,15
+2,14,222,Envireira,62,19.74,10,0.0306,0.2141,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+2,15,415,Pama,110,35.01,14,0.0963,0.9436,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,35
+2,16,112,Cafezinho,35,11.14,9,0.0097,0.0614,"Ampelocera edentula Kuhlm,",Ulmaceae,15
+2,17,198,Embaúba,48,15.28,12,0.0183,0.154,"Pourouma cecropiifolia Mart,",Urticaceae,15
+2,18,415,Pama,110,35.01,14,0.0963,0.9436,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,35
+2,19,114,Cajá,210,66.85,15,0.3509,3.6848,"Spondias globosa J, D, Mitch & Daly",Anacardiaceae,65
+2,20,764,Maraximbé,105,33.42,13,0.0877,0.7984,"Vouarana guianensis Aubl,",Sapindaceae,35
+2,21,255,Garapeira,58,18.46,11,0.0268,0.2061,Apuleia molaris Spruce ex Benth,Caesalpiniaceae,15
+2,22,369,Marfim,39,12.41,9,0.0121,0.0763,Agonandra brasiliensis Miers ex Benth,Opiliaceae,15
+2,23,716,Manitê,49,15.6,8,0.0191,0.107,"Brosimum alicastrum Sw, subsp, bolivarense (Pittier) C, C, Berg",Moraceae,15
+2,24,137,Caripé,161,51.25,16,0.2063,2.3103,"Couepia paraensis (Mart, & Zucc,) Benth, subsp, glaucescens (Spruce ex Hook,f,) Prance",Chrysobalanaceae,55
+2,25,9,Abiurana vermelha,41,13.05,10,0.0134,0.0936,"Pouteria torta (Mart,) Radlk, subsp, tuberculata (Sleumer) T, D, Penn",Sapotaceae,15
+3,1,640,Imbiridiba amarela,88,28.01,13,0.0616,0.5608,"Terminalia amazonica (J, F, Gmel,) Exell",Combretaceae,25
+3,2,261,Grão de galo,92,29.28,9,0.0674,0.4243,Tabernaemontana heterophylla Vahl,Apocynaceae,25
+3,3,577,Marfim roxo,68,21.65,10,0.0368,0.2576,"Aspidosperma desmanthum Benth, ex Müll, Arg,",Apocynaceae,25
+3,4,328,Laranjinha,37,11.78,8,0.0109,0.061,"Casearia gossypiosperma Briq,",Samydaceae,15
+3,5,198,Embaúba,70,22.28,15,0.039,0.4094,"Pourouma cecropiifolia Mart,",Urticaceae,25
+3,6,198,Embaúba,76,24.19,16,0.046,0.5148,"Pourouma cecropiifolia Mart,",Urticaceae,25
+3,7,513,Sumauma branca,55,17.51,10,0.0241,0.1685,"Ceiba pentandra (L,) Gaertn,",Malvaceae,15
+3,8,170,Cerejeira,70,22.28,9,0.039,0.2457,"Amburana acreana (Ducke) A, C, Sm,",Fabaceae,25
+3,9,198,Embaúba,53,16.87,12,0.0224,0.1878,"Pourouma cecropiifolia Mart,",Urticaceae,15
+3,10,463,Piaca,89,28.33,10,0.063,0.4412,Diplotropis triloba Gleason,Fabaceae,25
+3,11,198,Embaúba,79,25.15,13,0.0497,0.4519,"Pourouma cecropiifolia Mart,",Urticaceae,25
+3,12,255,Garapeira,223,70.98,17,0.3957,4.7092,Apuleia molaris Spruce ex Benth,Caesalpiniaceae,75
+3,13,29,Algodão bravo/Pau de balsa,93,29.6,10,0.0688,0.4818,"Ochroma pyramidale (Cav, ex Lam,) Urb,",Malvaceae,25
+3,14,198,Embaúba,87,27.69,16,0.0602,0.6746,"Pourouma cecropiifolia Mart,",Urticaceae,25
+3,15,29,Algodão bravo/Pau de balsa,105,33.42,8,0.0877,0.4913,"Ochroma pyramidale (Cav, ex Lam,) Urb,",Malvaceae,35
+3,16,114,Cajá,89,28.33,17,0.063,0.7501,"Spondias globosa J, D, Mitch & Daly",Anacardiaceae,25
+3,17,528,Tamarina,57,18.14,10,0.0259,0.181,"Dialium guianense (Aubl,) Sandwith",Caesalpiniaceae,15
+3,18,610,Amarelão,40,12.73,9,0.0127,0.0802,Aspidosperma williamsii Duarte,Apocynaceae,15
+3,19,516,Sumauma preta,182,57.93,16,0.2636,2.9522,"Ceiba samauma (Mart,) K, Schum,",Malvaceae,55
+3,20,610,Amarelão,174,55.39,17,0.2409,2.8671,Aspidosperma williamsii Duarte,Apocynaceae,55
+4,1,348,Maçaranduba,40,12.73,9,0.0127,0.0802,"Manilkara bidentata (A, DC,) subsp, surinamensis (Miq,) T, D, Penn",Sapotaceae,15
+4,2,222,Envireira,43,13.69,10,0.0147,0.103,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+4,3,222,Envireira,32,10.19,8,0.0081,0.0456,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+4,4,105,Cacau,40,12.73,9,0.0127,0.0802,"Theobroma cacao L,",Malvaceae,15
+4,5,308,Jitó,55,17.51,11,0.0241,0.1854,Guarea macrophylla Vahl,Meliaceae,15
+4,6,528,Tamarina,170,54.11,10,0.23,1.6099,"Dialium guianense (Aubl,) Sandwith",Caesalpiniaceae,55
+4,7,322,Jutaí,155,49.34,17,0.1912,2.2751,Hymenaea oblongifolia Huber,Caesalpiniaceae,45
+4,8,182,Copaíba,390,124.14,17,1.2104,14.4034,Copaifera multijuga Hayne,Caesalpiniaceae,125
+4,9,571,Castanharana branca,44,14.01,8,0.0154,0.0863,"Eschweilera juruensis R, Knuth",Lecythidaceae,15
+4,10,255,Garapeira,251,79.9,15,0.5013,5.2641,Apuleia molaris Spruce ex Benth,Caesalpiniaceae,75
+4,11,528,Tamarina,41,13.05,8,0.0134,0.0749,"Dialium guianense (Aubl,) Sandwith",Caesalpiniaceae,15
+4,12,415,Pama,69,21.96,11,0.0379,0.2917,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,25
+4,13,264,Guariúba,176,56.02,12,0.2465,2.0706,"Clarisia racemosa Ruiz & Pav,",Moraceae,55
+4,14,415,Pama,52,16.55,10,0.0215,0.1506,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+4,15,415,Pama,58,18.46,9,0.0268,0.1687,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+4,16,505,Seringueira,38,12.1,9,0.0115,0.0724,"Hevea brasiliensis (Willd, ex A, Juss) Müll, Arg",Euphorbiaceae,15
+4,17,415,Pama,43,13.69,9,0.0147,0.0927,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+4,18,147,Castainha,54,17.19,10,0.0232,0.1624,Caryodendron amazonicum Ducke,Euphorbiaceae,15
+4,19,134,Carapanaúba,70,22.28,12,0.039,0.3275,"Aspidosperma megalocarpon Müll, Arg,",Apocynaceae,25
+4,20,222,Envireira,33,10.5,8,0.0087,0.0485,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+4,21,160,Caucho,72,22.92,11,0.0413,0.3176,"Castilla ulei Warb,",Moraceae,25
+5,1,576,Cajazeira,54,17.19,8,0.0232,0.1299,"Spondias mombin L,",Anacardiaceae,15
+5,2,222,Envireira,32,10.19,9,0.0081,0.0513,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+5,3,415,Pama,38,12.1,7,0.0115,0.0563,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+5,4,29,Algodão bravo/Pau de balsa,70,22.28,10,0.039,0.273,"Ochroma pyramidale (Cav, ex Lam,) Urb,",Malvaceae,25
+5,5,716,Manitê,51,16.23,10,0.0207,0.1449,"Brosimum alicastrum Sw, subsp, bolivarense (Pittier) C, C, Berg",Moraceae,15
+5,6,553,Urtiga,90,28.65,8,0.0645,0.361,"Urera baccifera (L,) Gaudich, ex Wedd,",Urticaceae,25
+5,7,168,Cedro rosa,40,12.73,7,0.0127,0.0624,"Cedrela odorata L,",Meliaceae,15
+5,8,286,Ingazeira,80,25.46,9,0.0509,0.3209,"Inga capuchoi Standl,",Mimosaceae,25
+5,9,105,Cacau,40,12.73,10,0.0127,0.0891,"Theobroma cacao L,",Malvaceae,15
+5,10,640,Imbiridiba amarela,188,59.84,16,0.2813,3.1501,"Terminalia amazonica (J, F, Gmel,) Exell",Combretaceae,55
+5,11,610,Amarelão,34,10.82,9,0.0092,0.058,Aspidosperma williamsii Duarte,Apocynaceae,15
+5,12,415,Pama,82,26.1,11,0.0535,0.412,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,25
+5,13,516,Sumauma preta,47,14.96,12,0.0176,0.1477,"Ceiba samauma (Mart,) K, Schum,",Malvaceae,15
+5,14,571,Castanharana branca,36,11.46,10,0.0103,0.0722,"Eschweilera juruensis R, Knuth",Lecythidaceae,15
+5,15,786,Xixá branco,40,12.73,8,0.0127,0.0713,"Sterculia chicomendesii E, L, Taylor",Malvaceae,15
+5,16,105,Cacau,36,11.46,8,0.0103,0.0578,"Theobroma cacao L,",Malvaceae,15
+5,17,369,Marfim,53,16.87,9,0.0224,0.1408,Agonandra brasiliensis Miers ex Benth,Opiliaceae,15
+5,18,222,Envireira,33,10.5,10,0.0087,0.0607,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+5,19,330,Louro,37,11.78,11,0.0109,0.0839,"Ocotea puberula (Rich,) Nees",Lauraceae,15
+5,20,222,Envireira,35,11.14,10,0.0097,0.0682,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+5,21,261,Grão de galo,45,14.32,12,0.0161,0.1354,Tabernaemontana heterophylla Vahl,Apocynaceae,15
+6,1,255,Garapeira,333,106,16,0.8824,9.8832,Apuleia molaris Spruce ex Benth,Caesalpiniaceae,105
+6,2,516,Sumauma preta,50,15.92,8,0.0199,0.1114,"Ceiba samauma (Mart,) K, Schum,",Malvaceae,15
+6,3,222,Envireira,35,11.14,6,0.0097,0.0409,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+6,4,286,Ingazeira,75,23.87,10,0.0448,0.3133,"Inga capuchoi Standl,",Mimosaceae,25
+6,5,571,Castanharana branca,157,49.97,16,0.1962,2.1969,"Eschweilera juruensis R, Knuth",Lecythidaceae,45
+6,6,463,Piaca,52,16.55,9,0.0215,0.1356,Diplotropis triloba Gleason,Fabaceae,15
+6,7,415,Pama,61,19.42,7,0.0296,0.1451,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+6,8,610,Amarelão,146,46.47,17,0.1696,2.0186,Aspidosperma williamsii Duarte,Apocynaceae,45
+6,9,328,Laranjinha,45,14.32,10,0.0161,0.1128,"Casearia gossypiosperma Briq,",Samydaceae,15
+6,10,160,Caucho,67,21.33,10,0.0357,0.2501,"Castilla ulei Warb,",Moraceae,25
+6,11,54,Aquariquara,66,21.01,6,0.0347,0.1456,"Minquartia guianensis Aubl,",Olacaceae,25
+6,12,415,Pama,60,19.1,9,0.0286,0.1805,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+6,13,7,Abiurana,44,14.01,10,0.0154,0.1078,"Pouteria reticulata (Engl,) Eyma",Sapotaceae,15
+6,14,463,Piaca,40,12.73,10,0.0127,0.0891,Diplotropis triloba Gleason,Fabaceae,15
+6,15,513,Sumauma branca,251,79.9,17,0.5013,5.966,"Ceiba pentandra (L,) Gaertn,",Malvaceae,75
+6,16,255,Garapeira,220,70.03,16,0.3852,4.3137,Apuleia molaris Spruce ex Benth,Caesalpiniaceae,75
+6,17,160,Caucho,80,25.46,10,0.0509,0.3565,"Castilla ulei Warb,",Moraceae,25
+6,18,307,Jequitibá,314,99.95,17,0.7846,9.3368,Cariniana micrantha Ducke,Lecythidaceae,95
+6,19,330,Louro,42,13.37,10,0.014,0.0983,"Ocotea puberula (Rich,) Nees",Lauraceae,15
+6,20,222,Envireira,38,12.1,6,0.0115,0.0483,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+7,1,69,Bacuri,53,16.87,7,0.0224,0.1095,"Garcinia acuminata Planch, & Triana",Clusiaceae,15
+7,2,369,Marfim,60,19.1,8,0.0286,0.1604,Agonandra brasiliensis Miers ex Benth,Opiliaceae,15
+7,3,511,Sucupira amarela,50,15.92,10,0.0199,0.1393,"Diplotropis purpurea (Rich,) Amshoff",Fabaceae,15
+7,4,610,Amarelão,83,26.42,13,0.0548,0.4989,Aspidosperma williamsii Duarte,Apocynaceae,25
+7,5,322,Jutaí,259,82.44,16,0.5338,5.9787,Hymenaea oblongifolia Huber,Caesalpiniaceae,85
+7,6,463,Piaca,44,14.01,11,0.0154,0.1186,Diplotropis triloba Gleason,Fabaceae,15
+7,7,267,Imbirindiba,179,56.98,14,0.255,2.4987,"Terminalia oblonga (Ruiz & Pav,) Steud,",Combretaceae,55
+7,8,147,Castainha,36,11.46,6,0.0103,0.0433,Caryodendron amazonicum Ducke,Euphorbiaceae,15
+7,9,54,Aquariquara,44,14.01,9,0.0154,0.0971,"Minquartia guianensis Aubl,",Olacaceae,15
+7,10,516,Sumauma preta,52,16.55,10,0.0215,0.1506,"Ceiba samauma (Mart,) K, Schum,",Malvaceae,15
+7,11,105,Cacau,38,12.1,6,0.0115,0.0483,"Theobroma cacao L,",Malvaceae,15
+7,12,154,Castanharana vermelha,33,10.5,8,0.0087,0.0485,"Eschweilera odora (Poepp, Ex Berg,) Miers",Lecythidaceae,15
+7,13,246,Figueira,32,10.19,7,0.0081,0.0399,"Ficus maxima Mill,",Moraceae,15
+7,14,69,Bacuri,79,25.15,11,0.0497,0.3824,"Garcinia acuminata Planch, & Triana",Clusiaceae,25
+7,15,54,Aquariquara,34,10.82,6,0.0092,0.0386,"Minquartia guianensis Aubl,",Olacaceae,15
+7,16,415,Pama,60,19.1,6,0.0286,0.1203,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+7,17,463,Piaca,53,16.87,10,0.0224,0.1565,Diplotropis triloba Gleason,Fabaceae,15
+7,18,160,Caucho,145,46.15,11,0.1673,1.2883,"Castilla ulei Warb,",Moraceae,45
+8,1,168,Cedro rosa,43,13.69,6,0.0147,0.0618,"Cedrela odorata L,",Meliaceae,15
+8,2,286,Ingazeira,67,21.33,6,0.0357,0.15,"Inga capuchoi Standl,",Mimosaceae,25
+8,3,579,Macacaúba,50,15.92,11,0.0199,0.1532,Platymiscium trinitatis,Fabaceae,15
+8,4,716,Manitê,322,102.5,16,0.8251,9.241,"Brosimum alicastrum Sw, subsp, bolivarense (Pittier) C, C, Berg",Moraceae,105
+8,5,434,Ipê amarelo,35,11.14,11,0.0097,0.0751,"Tabebuia serratifolia (Vahl) G, Nicholson",Bignoniaceae,15
+8,6,286,Ingazeira,70,22.28,10,0.039,0.273,"Inga capuchoi Standl,",Mimosaceae,25
+8,7,61,Aroeira,42,13.37,6,0.014,0.059,Astronium lecointei Ducke,Anacardiaceae,15
+8,8,263,Guaribeiro,36,11.46,11,0.0103,0.0794,"Phyllocarpus riedelii Tul,",Caesalpiniaceae,15
+8,9,716,Manitê,293,93.26,14,0.6832,6.695,"Brosimum alicastrum Sw, subsp, bolivarense (Pittier) C, C, Berg",Moraceae,95
+8,10,415,Pama,52,16.55,8,0.0215,0.1205,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+8,11,170,Cerejeira,197,62.71,16,0.3088,3.4589,"Amburana acreana (Ducke) A, C, Sm,",Fabaceae,65
+8,12,576,Cajazeira,35,11.14,6,0.0097,0.0409,"Spondias mombin L,",Anacardiaceae,15
+8,13,516,Sumauma preta,205,65.25,10,0.3344,2.341,"Ceiba samauma (Mart,) K, Schum,",Malvaceae,65
+8,14,396,Mulungu,80,25.46,11,0.0509,0.3922,Erythrina amazonica Krukoff,Fabaceae,25
+8,15,512,Sucuúba (janaguba),42,13.37,7,0.014,0.0688,Himatanthus sucuuba (Spruce) Woodson,Apocynaceae,15
+8,16,263,Guaribeiro,226,71.94,18,0.4064,5.1213,"Phyllocarpus riedelii Tul,",Caesalpiniaceae,75
+8,17,415,Pama,50,15.92,10,0.0199,0.1393,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+8,18,61,Aroeira,35,11.14,8,0.0097,0.0546,Astronium lecointei Ducke,Anacardiaceae,15
+8,19,160,Caucho,65,20.69,10,0.0336,0.2354,"Castilla ulei Warb,",Moraceae,25
+9,1,640,Imbiridiba amarela,179,56.98,13,0.255,2.3203,"Terminalia amazonica (J, F, Gmel,) Exell",Combretaceae,55
+9,2,69,Bacuri,32,10.19,6,0.0081,0.0342,"Garcinia acuminata Planch, & Triana",Clusiaceae,15
+9,3,222,Envireira,43,13.69,8,0.0147,0.0824,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15
+9,4,463,Piaca,32,10.19,11,0.0081,0.0627,Diplotropis triloba Gleason,Fabaceae,15
+9,5,147,Castainha,61,19.42,13,0.0296,0.2695,Caryodendron amazonicum Ducke,Euphorbiaceae,15
+9,6,576,Cajazeira,43,13.69,8,0.0147,0.0824,"Spondias mombin L,",Anacardiaceae,15
+9,7,553,Urtiga,50,15.92,8,0.0199,0.1114,"Urera baccifera (L,) Gaudich, ex Wedd,",Urticaceae,15
+9,8,101,Burra leiteira,80,25.46,12,0.0509,0.4278,Sapium marmieri Huber,Euphorbiaceae,25
+9,9,105,Cacau,40,12.73,6,0.0127,0.0535,"Theobroma cacao L,",Malvaceae,15
+9,10,434,Ipê amarelo,50,15.92,11,0.0199,0.1532,"Tabebuia serratifolia (Vahl) G, Nicholson",Bignoniaceae,15
+9,11,330,Louro,62,19.74,11,0.0306,0.2355,"Ocotea puberula (Rich,) Nees",Lauraceae,15
+9,12,147,Castainha,66,21.01,12,0.0347,0.2912,Caryodendron amazonicum Ducke,Euphorbiaceae,25
+9,13,415,Pama,50,15.92,8,0.0199,0.1114,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+9,14,328,Laranjinha,40,12.73,10,0.0127,0.0891,"Casearia gossypiosperma Briq,",Samydaceae,15
+9,15,9,Abiurana vermelha,41,13.05,8,0.0134,0.0749,"Pouteria torta (Mart,) Radlk, subsp, tuberculata (Sleumer) T, D, Penn",Sapotaceae,15
+9,16,415,Pama,37,11.78,8,0.0109,0.061,"Pseudolmedia laevis (Ruiz & Pav,) J, F, Macbr,",Moraceae,15
+9,17,9,Abiurana vermelha,192,61.12,14,0.2934,2.8749,"Pouteria torta (Mart,) Radlk, subsp, tuberculata (Sleumer) T, D, Penn",Sapotaceae,65
+9,18,348,Maçaranduba,251,79.9,12,0.5013,4.2113,"Manilkara bidentata (A, DC,) subsp, surinamensis (Miq,) T, D, Penn",Sapotaceae,75
+9,19,222,Envireira,43,13.69,8,0.0147,0.0824,"Malmea dielsiana Saff, ex R, E, Fr,",Annonaceae,15

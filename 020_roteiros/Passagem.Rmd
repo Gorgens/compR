@@ -1,0 +1,15 @@
+---
+title: "Qual a idade de uma árvore?"
+output: html_notebook
+---
+
+O tempo de passagem se baseia no tempo médio que uma árvore leva para passar por uma classe de diâmetro. Este tempo depende do incremento em diâmetro relacionado à classe analisada.
+
+Passo a passo para calcular o tempo de passagem:
+
+- Realizar um inventário contínuo distanciado de um período t.
+- Calcular o incremento diamétrico de cada uma das árvores inventariadas: $INC_i = \frac{DAP_{i2} - DAP_{i1}}{t_2 - t_1}$
+- Calcular o incremento diamétrico médio de cada uma das classes de diâmetro: $INC_j = \frac{\sum_{i = 1}^{N_j} INC_i}{N_j}$
+- Calcular o tempo de passagem em cada classe diamétrica: $TP_j = \frac{IC}{INC_j}$
+- Ajustar uma regressão para normalizar o tempo de passagem: $TP_j=\alpha+\beta D_j$
+

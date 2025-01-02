@@ -1,0 +1,61 @@
+---
+title: "Diametrica múltiplas parcelas"
+output: html_notebook
+---
+
+Quando a área florestal é muito grande, é impossível realizar a medição de todas as árvores. Por isto, utilizam-se técnicas amostrais para estimar parâmetros da floresta a partir pequenas porções medidas, denominadas de parcelas.
+
+No inventário aqui apresentado, foram pedicas 190 árvores, distribuídas em 9 parcelas de 400 m² cada.
+
+```{r}
+inv = read.csv('inventario2.csv')
+head(inv)
+```
+
+Assim, a distribuição diamétrica da floresta será representada pela distribuição diamétrica média das parcelas. O primeiro passo portanto é calcular o centro de classe de cada árvore dentro do inventário. Para aplicar a fórmula vista no seção anterior, é necessário obter os diâmetros mínimo e máximo.
+
+```{r}
+min(inv$dap)
+
+max(inv$dap)
+```
+
+
+```{r}
+centroClasse <- function(x, dmin = 10, dmax = 150, intervalo = 10) {
+  limInf = seq(dmin, dmax-intervalo, intervalo)
+  limSup = seq(dmin+intervalo, dmax, intervalo)
+  centro = seq(dmin+intervalo/2, dmax-intervalo/2, intervalo)
+  return(centro[(x >= limInf) & (x < limSup)])
+}
+inv$cc = sapply(inv$dap, centroClasse)
+```
+
+Agora, é necessário determinar a distribuição para cada uma das parcelas.
+
+```{r}
+area = 0.04
+
+freqDiam = inv %>% 
+  group_by(parcela, cc) %>%
+  summarise(freq = n()/area) %>%
+  group_by(cc)
+
+freqDiamPlots = spread(freqDiam,
+                        key = cc,
+                        value = freq)
+
+freqDiamPlots
+```
+
+Agora, basta realizar a média das distribuições obtidas para cada parcela.
+
+```{r}
+nparcelas = length(unique(inv$parcela))
+
+freqDiamComun = freqDiam %>%
+  group_by(cc) %>%
+  summarise(freq = sum(freq)/nparcelas)
+
+freqDiamComun
+```

@@ -1,0 +1,63 @@
+---
+title: "O efeito no crescimento"
+output: html_notebook
+---
+
+```{r}
+require(rstanarm)
+require(dplyr)
+```
+
+Foram realizados três inventários florestais contínuos, com os quais foi possível determinar o incremento diamétrico anual. Anambé e Cauaxi representam inventário de um local cada. Já Tapajós, contemplou duas áreas florestais diferentes.
+
+```{r}
+anambe = read.csv('dados/anambe.csv')
+tapajos = read.csv('dados/tapajos.csv')
+cauaxi =  read.csv('dados/cauaxi.csv')
+
+inv = rbind(anambe, tapajos, cauaxi)
+
+inv = inv %>% filter(!is.na(ida))
+```
+
+## O efeito do local
+
+Rapidamente é possível calcular o incremento diamétrico anual médio de cada local. A região de Anambé possui a maior taca de crescimento diamétrico, seguido por Tapajós 4, Cauaxi e por último, Tapajós 1.
+
+```{r}
+mediaInc = inv %>% group_by(base) %>% summarise(incMed = mean(ida))
+mediaInc
+```
+
+A pergunta agora é saber se estes crescimento são diferentes entre si. Para isto, será utilizado um modelo Bayesiano.
+
+```{r, cache=TRUE}
+efeitoLocal = stan_glm(ida ~ base, family = gaussian(link = 'identity'), data = inv)
+```
+O modelo Bayesiano, assumindo distribuição normal para o incremento diamétrico anual, indica que Anambé, utilizado como intercepto, possui incremento médio (intercepto) igual a `r efeitoLocal$coefficients[1]` cm/ano. Tapajós 4 possui coeficiente de `r efeitoLocal$coefficients[4]`. Isto indica que este local, possui um incremento diamétrico, em média, igual ao intercepto. Já Cauaxi e Tapajós 1, possuem um incremento diamétrico anual médio 0.2 cm/ano inferior a Anambé. Lembrando que cada coeficiente possui uma estimativa da incerteza, indicada pelo valor médio de desvio (MAD). Neste caso, a incerteza em Tapajós 1 é maior que em Cauaxi. 
+
+```{r}
+efeitoLocal
+```
+
+Graficamente, o resultado fica ainda mais interessante de se analisar. Veja que o intervalo do coeficiente de Tapajós 4 contém o valor zero. Desta forma, isto mostra que o valor de Tapajós 4 é o mesmo de Anambé (representado pelo intercepto). Já Cauaxi e tapajós 1 terial valores diferentes de Anambé, uma vez que seus coeficientes são diferentes de zero, e portanto mudariam o valor do intercepto (Anambé).
+
+```{r}
+plot(efeitoLocal, prob = 0.9)
+```
+
+## O efeito do diâmetro
+
+Imagine agora, se a pergunta for se o incremento diamétrico anual sofre influência do porte da árvore, expresso pelo seu diâmetro. Um modelo Bayesiano também pode ser usado, mas agora, tendo o diâmetro da árvore na primeira medição como variável independente.
+
+```{r}
+efeitoDap = stan_glm(ida ~ dap1, family = gaussian(link = 'identity'), data = anambe)
+```
+
+O grafico indica que existe sim a influência do diâmetro, uma vez que o coeficiente associado ao `dap1` é seguramente diferente de zero. Para cada unidade a mais no diâmetro, o incremento modifica em `r efeitoDap$coefficients[2]` cm/ano.
+
+```{r}
+plot(efeitoDap, prob = 0.9)
+```
+
+

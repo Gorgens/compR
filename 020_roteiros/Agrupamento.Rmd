@@ -1,0 +1,51 @@
+
+
+## Agrupamento
+
+
+```{r}
+df = dap10[,2:30]
+row.names(df) = dap10$Site.code
+df <- na.omit(df)
+df <- scale(df)
+```
+
+Analisa quantidade de grupos por dois métodos diferentes.
+
+```{r}
+fviz_nbclust(df, kmeans, method = "wss", k.max = 30)
+```
+
+---
+title: "Estrutura diamétrica"
+output: html_notebook
+---
+
+```{r}
+require(tidyr)
+```
+
+```{r}
+#calculate gap statistic based on number of clusters
+gap_stat <- clusGap(df,
+                    FUN = kmeans,
+                    nstart = 25,
+                    K.max = 30,
+                    B = 50)
+
+#plot number of clusters vs. gap statistic
+fviz_gap_stat(gap_stat)
+```
+
+```{r}
+km <- kmeans(df, centers = 5, nstart = 25)
+fviz_cluster(km, data = df)
+```
+
+
+```{r}
+aggregate(USArrests, by=list(cluster=km$cluster), mean)
+```
+
+
+Referencia: [link](https://www.statology.org/k-means-clustering-in-r/).

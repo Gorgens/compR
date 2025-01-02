@@ -1,0 +1,183 @@
+---
+title: "População"
+output: html_notebook
+---
+
+```{r}
+require(ggplot2)
+require(gridExtra)
+```
+
+## Uma espécie, uma população
+
+```{r, echo=FALSE}
+canvasX = 100
+canvasY = 100
+
+sp = 1
+pop = 1000
+
+especie = c()
+coordx = c()
+coordy = c()
+
+for(i in seq(1, pop)){
+  especie[i] = sample(1:sp, 1)
+  
+  coordx[i] = runif(1, 0, canvasX)
+  coordy[i] = runif(1, 0, canvasY)
+}
+
+comunidade = data.frame(especie = especie, coordx = coordx, coordy = coordy)
+```
+
+População pode ser definida como um conjunto de indivíduos de uma mesma espécie que vive em uma determinada área. Imagine uma área que possui árvores de apenas uma espécie, e todas elas foram localizadas, numeradas e mapeadas. O número e localização de cada uma das árvores mapeadas foram refistradas numa planilha.
+
+```{r}
+head(comunidade)
+```
+
+Outra forma de apresentar os dados registrados e por meio de um gráfico em que cada ponto representa um dos indivíduos. Os eixos representam as coordenadas dos indivíduos na área amostrada.
+
+```{r}
+ggplot(comunidade, aes(coordx, coordy, col = factor(especie))) +
+  geom_point() +
+  xlab('Coordenada X (metros)') +
+  ylab('Coordenada Y (metros)') +
+  theme_bw()
+```
+
+## De população para comunidade
+
+```{r, echo=FALSE}
+sp = 6
+pop = 1000
+prob = c(0.3, 0.4, 0.1, 0.1, 0.05, 0.05)
+
+especie = c()
+coordx = c()
+coordy = c()
+
+for(i in seq(1, pop)){
+  especie[i] = sample(1:sp, 1, prob = prob)
+  
+  coordx[i] = runif(1, 0, canvasX)
+  coordy[i] = runif(1, 0, canvasY)
+}
+
+comunidade2 = data.frame(especie = especie, coordx = coordx, coordy = coordy)
+```
+
+Mas uma floresta nativa não é formada apenas pela população de espécie, mas por populações de várias espécies, que cohabitam a mesma área. Nas comunidades, as diferentes populações interagem das mais variadas maneiras. Essas interações, também chamadas de relações ecológicas que podem ser interespecíficas ou intraespecíficas.
+
+```{r}
+head(comunidade2)
+```
+
+A representação gráfica de uma comunidade se torna muito mais complexa que a representação gráfica de uma população. Numa mesma área, antes dominada por apenas uma espécíe, agora é divida por indivíduos de várias espécies. Outra forma de apresentar os dados registrados e por meio de um gráfico em que cada ponto representa um dos indivíduos. Os eixos representam as coordenadas dos indivíduos na área amostrada.
+
+```{r}
+ggplot(comunidade2, aes(coordx, coordy, col = factor(especie))) +
+  geom_point() +
+  xlab('Coordenada X (metros)') +
+  ylab('Coordenada Y (metros)') +
+  theme_bw()
+```
+
+## Índice de diversidade
+
+```{r, echo=FALSE}
+sp = 6
+pop = 1000
+prob = c(0.3, 0.5, 0.05, 0.05, 0.05, 0.05)
+
+especie = c()
+coordx = c()
+coordy = c()
+
+for(i in seq(1, pop)){
+  especie[i] = sample(1:sp, 1, prob = prob)
+  
+  coordx[i] = runif(1, 0, canvasX)
+  coordy[i] = runif(1, 0, canvasY)
+}
+
+comunidade3 = data.frame(especie = especie, coordx = coordx, coordy = coordy)
+
+sp = 6
+pop = 1000
+prob = c(0.1, 0.1, 0.1, 0.1, 0.1, 0.1)
+
+especie = c()
+coordx = c()
+coordy = c()
+
+for(i in seq(1, pop)){
+  especie[i] = sample(1:sp, 1, prob = prob)
+  
+  coordx[i] = runif(1, 0, canvasX)
+  coordy[i] = runif(1, 0, canvasY)
+}
+
+comunidade4 = data.frame(especie = especie, coordx = coordx, coordy = coordy)
+```
+
+Duas áreas foram estudadas, levantando todos os indivíduos existentes nelas. Cada indivíduos foi identificado em nível de espécie, e sua posição no espaço foi registrado. Ao colocar lado a lado o mapa dos indivíduos das duas áreas estudadas qual delas está mais organizada? Como é possível medir a organização de uma comunidade? Qual a característica que reflete esta organização? 
+
+```{r}
+c1 = ggplot(comunidade3, aes(coordx, coordy, col = factor(especie))) +
+  geom_point() +
+  xlab('Coordenada X (metros)') +
+  ylab('Coordenada Y (metros)') +
+  theme_bw()
+
+c2 = ggplot(comunidade4, aes(coordx, coordy, col = factor(especie))) +
+  geom_point() +
+  xlab('Coordenada X (metros)') +
+  ylab('Coordenada Y (metros)') +
+  theme_bw()
+
+grid.arrange(c1, c2, ncol=2)
+```
+
+Uma das formas de comparar a comunidade de duas áreas é usando índices de diversidade. O mais conhecido deles é índice de Shannon.
+
+$$H = - \sum_{i=1}^{S} p_i ln(p_i)$$
+
+Aplicando o índice de Shannon para a primeira área obtem-se o valor de:
+
+```{r}
+termo1 = table(comunidade3$especie)/length(comunidade3$especie)
+termo2 = log(table(comunidade3$especie)/length(comunidade3$especie))
+H1 = -1 * sum(termo1 * termo2)
+H1
+```
+
+Aplicando o índice de Shannon para a primeira área obtem-se o valor de:
+
+```{r}
+termo1 = table(comunidade4$especie)/length(comunidade4$especie)
+termo2 = log(table(comunidade4$especie)/length(comunidade4$especie))
+H2 = -1 * sum(termo1 * termo2)
+H2
+```
+
+Mas se ambas as áreas possuem 6 espécies, porque os valores do índice de Shannon possuem valores diferentes?
+
+Isto ocorre pois o conjunto de populações de cada uma das áreas formam uma comunidade que não se distribuem da mesma forma. Na primeira área, a população da espécie 2 é muito maior que as populações das demais espécies. Já na área 2, todas as populações aparentam ter um número muito parecido de indivíduos. 
+
+Analisando os dados coletados de cada uma das áreas, é possível perceber que de fato a área 1 é dominada pela espécie 2. 
+
+```{r}
+table(comunidade3$especie)
+```
+
+Enquanto que a área dois, todas as populações apresentam valores populacionais muito parecidos.
+
+```{r}
+table(comunidade4$especie)
+```
+
+Logo, quanto maior o número de espécie e quanto mais balanceadas o tamanho das populações, maior o valor do índice de diversidade.
+
+

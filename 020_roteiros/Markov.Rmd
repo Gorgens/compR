@@ -1,0 +1,163 @@
+---
+title: "Projetando distribuição diamétrica"
+output: html_notebook
+---
+
+```{r}
+require(dplyr)
+require(tidyr)
+```
+
+A projeção de parâmetros populacionais em florestas nativas é um grande desafio, já que idade não é um parâmetro fácil de ser determinado. O fato de indivíduos de inúmeras espécies em diferentes estágios sucessionais co-existirem numa mesma área, não permite que o povoamento seja caracterizados por uma única idade. Desta forma, outras estratégias precisam ser adotadas para projetar parâmetros populacionais de florestas nativas. Umas dessas estratégias é a Cadeia de Markov.
+
+A Cadeia de Markov é um caso particular de processo estocástico com estados discretos e que apresenta a propriedade Markoviana de que a distribuição de probabilidade do próximo estado depende apenas do estado atual e não na sequência de eventos que precederam. A probabilidade de transição é a probabilidade de um processo atingir um estado futuro específico dado o seu estado corrente.
+
+$$P_{ij} = \frac{n_{ij}}{n_i}$$
+
+Em que:
+
+$P_{ij} =$ probabilidade de transição.
+
+$n_{ij} =$ número de indivíduos do estado i que passaram para o estado j, durante o tempo t.
+
+$n_{i} =$ número de indivíduos no estado i.
+
+Cadeia de Markov passa a ser uma ferramenta interessante quando se considera que as classes diamétricas são estados, e que com o passar do tempo, as árvores vão mudando de classe (i.e. estado) a medida que crescem. Desta forma, o objetivo da cadeia de Markov é obter uma matriz de transição, que permita projetar uma distribuição diamétrica para um tempo no futuro, a partir das probabilidades de uma árvore permanecer ou mudar de classe.
+
+Passo a passo para aplicar cadeia de Markov:
+
+1. Ter um inventário contínuo com intervalo entre mediçẽos de t.
+2. Calcular a matriz de mudança para um período t.
+3. Calcular a matriz de transição para um período t.
+
+O inventário contínuo é obtido quando se mede ao longo do tempo parcelas, tendo o controle em nível de árvore. Em outras palavras, por meio de um inventário contínuo é possível remidir continuamente as mesmas árvores. Medições consecutivas permitem que se analisem as mudanças, que no caso de árvores consitem em crescimento, mortalidade e ingresso.
+
+```{r}
+inv = read.csv('markov.csv')
+head(inv)
+```
+
+No inventário contínuo aqui apresentado, tem-se duas medições consecutivas: uma realizada em 2012 e outra em 2014. O primeiro passo é definir os parâmetros de análise. Para a sequência da análise, serão removidas as lianas, e árvores menores que 10 cm. Com estes filtros, das 12665 plantas medidas no inventário, 11635 atendem aos critérios e permaneceram na base de dados.
+
+```{r}
+inv = inv %>%
+  #filter(comum.nome != 'morta') %>%
+  filter(!is.na(dap.2012)) %>%
+  filter(comum.nome != 'liana') %>%
+  filter(dap.2012 > 10) %>%
+  filter(dap.2014 > 10)
+
+head(inv)
+```
+O próximo passo é determinar o centro de classe para cada árvore, em cada uma das medições. Para isto, será utilizado a função criada em seções anteriores. Duas informações são necessárias para a função: o diâmetro mínimo e o diâmetro máximo da base de dados. No caso desta análise, será mantido o intervalo de 10 cm. Mínimo e máximo para a medição de 2012:
+
+```{r}
+dmin = min(inv$dap.2012)
+dmin
+
+dmax = max(inv$dap.2012)
+dmax
+```
+
+Mínimo e máximo para a medição de 2012:
+
+```{r}
+dmin = min(inv$dap.2014)
+dmin
+
+dmax = max(inv$dap.2014)
+dmax
+```
+
+Agora sim, possível aplicar a função `centroClasse()` para ambas as colunas `dap.2012`e `dap.2014`.
+
+
+```{r}
+centroClasse <- function(x, dmin = 0, dmax = 210, intervalo = 10) {
+  limInf = seq(dmin, dmax-intervalo, intervalo)
+  limSup = seq(dmin+intervalo, dmax, intervalo)
+  centro = seq(dmin+intervalo/2, dmax-intervalo/2, intervalo)
+  return(centro[(x >= limInf) & (x < limSup)])
+}
+
+inv$cc.2012 = sapply(inv$dap.2012, centroClasse)
+inv$cc.2014 = sapply(inv$dap.2014, centroClasse)
+```
+
+Todas as árvores mortas, terão o cc.2014 renomeados para -999, de forma a ser possível calcular um probabilidade de morrer.
+
+```{r}
+inv$cc.2014 = ifelse(inv$comum.nome == 'morta', -999, inv$cc.2014)  
+```
+
+Agora será construída uma tabela de frequência para analisar como as árvores mudaram de classe comparando a medição de 2012 e de 2014. Nas colunas estarão representadas as classes de 2012 e nas linhas estarão representadas as classes de 2014. A leitura desta tabela indica como as árvores se movimentaram entre as classes de 2012 para as classes de 2014.
+
+```{r}
+tabFreq = inv %>%
+  group_by(cc.2012, cc.2014) %>%
+  summarise(narv = n()) %>%
+  pivot_wider(names_from = cc.2012,
+              values_from = narv)
+
+tabFreq
+```
+
+Algumas inconsistência podem ser observadas na matriz de frequência e precisa ser ajustada antes de se calcular a matriz de transição (ou matriz de probabilidade). Os principais problemas que devem ser resolvidos são:
+
+- Árvores diminuirem de tamanho.
+- Árvores com crescimento exagerado para o intervalo de tempo analisado.
+- Centros de classe com poucas árvores.
+- Centros de classe sem transição.
+
+Desta forma, todas as árvores que diminuiram serão removidas. Todas as árvores que cresceram duas ou mais classes também serão removidas da análise.
+
+```{r}
+for(c in 2:dim(tabFreq)[2]){
+  for(l in 2:dim(tabFreq)[1]){
+    if(l <= c-1){
+      tabFreq[l, c] = 0
+    }
+    if(l > c+1){
+      tabFreq[l, c] = 0
+    }
+  }
+}
+
+tabFreq
+```
+
+Classes com menos de 30 árvores também serão removidas.
+
+```{r}
+intervalo = 10
+classeCorte = 85
+colCorte = ceiling(classeCorte / intervalo)
+linhaCorte = ceiling(classeCorte / intervalo)
+
+tabFreq = tabFreq[1:linhaCorte, 1:colCorte]
+tabFreq
+```
+
+Um pequeno ajuste precisa ser feito, para transformar a primeira coluna em nomes das linhas.
+
+```{r}
+tabFreq2 = tabFreq %>%
+  select(-cc.2014) %>%
+  as.data.frame()
+row.names(tabFreq2) = tabFreq$cc.2014
+
+tabFreq2
+```
+
+Agora sim, é possível calcular as probabilidades. Isto é feito dividindo os números da colunas pelos todas árvores presentes na respectiva coluna. A matriz de transição é construída calculando as probabilidade de mudança ou não de classe, utilizando os valores de frequência da matriz de mudança:
+
+```{r}
+tabProb = apply(tabFreq2,2,function(x){round(x/sum(x), 2)})
+
+tabProb
+```
+
+Conhecendo a matriz de transição `T` (para um determinado intervalo de tempo), é possível projetar qualquer distribuição diamétrica `DD` para um futuro `f` múltiplo de `t` ($f = n * t$).
+
+$$DD_f = DD . T^n$$
+

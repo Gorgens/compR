@@ -1,0 +1,116 @@
+---
+title: "O equilíbrio de uma floresta"
+output: html_notebook
+---
+
+```{r}
+require(dplyr)
+```
+
+
+O engenheiro florestal francês chamado François de Lallemant de Liocourt apresentou em 1898 o conceito de floresta equilibrada. Este conceito trazia a ideia de que o número de árvores em sucessivas classes diamétricas em florestas inequiâneas deveria decrescer numa progressão geométrica constante (= razão q constante)!
+
+$$q_1 = q_2 = ... = q_{j-1}$$
+
+sendo que:
+
+$$q_j = \frac{N_j}{N_{j+1}}$$
+
+A ideia de floresta equilibrada está por trás do método BDq, que é também conhecido como método de controle pela classe diamétrica. O objetivo por trás do BDq é recomendar o manejo de uma floresta levando a distribuição diamétrica para o equilíbrio, ou seja, para uma \textbf{razão q constante}.
+
+Passo a passo do método BDq:
+
+1. Construir a distribuição diamétrica observada, determinar a área basa por classe diamétrica. 
+2. Determinar o \textbf{q alvo} para a área.
+3. Calcular $\beta_1 = \frac{ln(q_{alvo})}{-CentroClasse}$.
+4. Calcular $\beta_0 = ln(40000 * \frac{AB}{\pi * \sum (D_j^2*exp(\beta_1*D_j))})$.
+5. Estimar a distribuição ideal com base no modelo ajustado.
+
+A partir de um inventário florestal, é necessário obter a distribuição diamétrica da floresta. 
+
+```{r}
+inv = read.csv('inventario2.csv')
+head(inv)
+```
+
+```{r}
+min(inv$dap)
+max(inv$dap)
+```
+
+Sabendo que os valores de mínimo e máximo do diâmetro são 10,19 (~10) e 143,24 (~150), é possível configurar a função para determinar o centro de classe de qualquer árvore presente neste inventário.
+
+```{r}
+centroClasse <- function(x, dmin = 10, dmax = 150, intervalo = 10) {
+  limInf = seq(dmin, dmax-intervalo, intervalo)
+  limSup = seq(dmin+intervalo, dmax, intervalo)
+  centro = seq(dmin+intervalo/2, dmax-intervalo/2, intervalo)
+  return(centro[(x >= limInf) & (x < limSup)])
+}
+inv$cc = sapply(inv$dap, centroClasse)
+```
+
+Agora obtem-se a distribuição diamétrica de cada parcela e em seguida, obtêm-se a distribuição diamétrica média, que melhor representa a distribuição diamétrica da floresta.
+
+```{r}
+area = 0.04
+
+freqDiam = inv %>% 
+  group_by(parcela, cc) %>%
+  summarise(freq = n()/area, AB = sum(g)/area) %>%
+  group_by(cc)
+
+nparcelas = length(unique(inv$parcela))
+
+freqDiamComun = freqDiam %>%
+  group_by(cc) %>%
+  summarise(freq = sum(freq)/nparcelas, AB = sum(AB)/nparcelas)
+
+freqDiamComun
+```
+
+Partindo intervalo de classes e de um `q` alvo, calcula-se o `b1`.
+
+```{r}
+intervalo = 10
+q_alvo = 2
+
+b1 = - log(q_alvo) / intervalo
+```
+
+Para obter o `b0`, é necessário obter um fator de ponderamento para cada classe:
+
+```{r}
+freqDiamComun$ponderacao = freqDiamComun$cc^2 * exp(b1 * freqDiamComun$cc)
+```
+
+Agora sim é possível obter o `b0`. No método BDq, existe um parâmetro em que uma intervenção sobre a área basal pode ser definida. Quando isto acontece, o método determina a distribuição diamétrica equilibrada pós-intervenção.
+
+```{r}
+intervencao = 0
+b0 = log((40000 * (sum(freqDiamComun$AB)-(sum(freqDiamComun$AB) * (intervencao)))) / (pi * sum(freqDiamComun$ponderacao)))
+```
+
+Os valores de `b0` e `b1` estimados, correspondem à uma floresta balanceada. Agora, é possível comprar a disitrbuição diamétrica da floresta atual, com a floresta balanceada e assim determinar qual deve ser a intervenção que torne a floresta balanceada.
+
+```{r}
+freqDiamComun$freqBalanceado = exp(b0 + b1 * freqDiamComun$cc)
+freqDiamComun
+```
+
+Nota-se que os valores para para os centros de classe menores foram estimados com valores muito altos se comparados à floresta atual. Desta forma, deve-se recalcular `b0` e `b1` buscando aproximar os valores. Após algumas tentativas, o `q_alvo` de 1.75 mostrou melhor resultado e será utilizado daqui em diante.
+
+```{r}
+q_alvo = 1.75
+intervalo = 10
+b1 = - log(q_alvo) / intervalo
+freqDiamComun$ponderacao = freqDiamComun$cc^2 * exp(b1 * freqDiamComun$cc)
+intervencao = 0
+b0 = log((40000 * (sum(freqDiamComun$AB)-(sum(freqDiamComun$AB) * (intervencao)))) / (pi * sum(freqDiamComun$ponderacao)))
+freqDiamComun$freqBalanceado = exp(b0 + b1 * freqDiamComun$cc)
+freqDiamComun
+```
+
+As colunas `freq` e `freqBalanceado` podem ser comparadas. Para uma determinada classe, se o valor em `freq` (que representa os valores atuais) foram maiores que em `freqBalanceado` (valores balanceados), isto indica que árvores podem ser removidas nesta classe. Já valores em `freq` (que representa os valores atuais) inferiores em relação a `freqBalanceado` (valores balanceados), indicam que não podem ser removidas árvores na classe.
+
+Segundo o método BDq, o manejador deve orientar as prescrições de colheita e silvicultura para transformar a distribuição diamétrica atual na distribuição diamétrica ideal. Mas nunca se esqueça que a recomendação de exploração deve respeitar os limites e imposições legais, mesmo que o método aponte por explorações mais intensas.
