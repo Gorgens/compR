@@ -1,0 +1,112 @@
+---
+title: "Árvore"
+output: html_notebook
+---
+
+## O que é uma árvore?
+
+A melhor forma de entender como uma determinada pessoa encherga o mundo, é por meio das definições que ela adota para um determinado objetivo. Pegue um objeto simples e pergunto qual a definição dele. Pronto. Você já vai conhecer muita coisa sobre a pessoa pela simples forma com que ela definiu o objeto em questão.
+
+Veja um objeto aparentemente banal como uma árvore. Quantas formas diferentes de definir este objeto tão presente em nossas vidas.
+
+- A árvore é um símbolo que liga o mundo espiritual com mundo material.
+
+- A árvore é um vegetal de tronco lenhoso cujos ramos só saem a certa altura do solo.
+
+- A árvore é uma planta que quando na idade adulta a copa se prolonga lateralmente, obstruindo a luz que atinge o solo. 
+
+- A árvore é uma planta permanentemente lenhosa, de grande porte, com raízes pivotantes, caule lenhoso do tipo tronco, que forma ramos bem acima do nível do solo e que se estendem até o ápice da raiz.
+
+- A árvore é um ser vivo complexo formando por diferentes tecidos, dos quais se destacam os tecidos de sustentação conhecidos como colênquima e o esclerênquima. Estes tecidos é que garatem às árvores suporte mecânico.
+
+- A árvore é um vegetal de grande porte, capaz de realizar processos bioquímicos como a fotossíntese e a respiração, durante os quais ocorrem a evapotranspiração. Este processo é composto pela evaporação da água das superfícies das folhas e galhos, mais a transpiração dos tecidos vegetais, onde a água passa para a atmosfera no estado de vapor e faz parte do ciclo hidrológico.
+
+- A árvore é uma planta lenhosa perene com um único tronco principal, raramente formando multiplos troncos, que é ramificado na parte superior formando uma copa.
+
+## A árvore na ciência florestal
+
+A ciência que se dedica ao estudo das árvores precisa definir um conjunto de características morfológicas para permitir permitir relações e associações de forma geral e inequívoca. Assim, para a dendrologia, uma árvore será formada por folhas, ramos e tronco, cujas características particulares irão definir a espécie, gênero e família. 
+
+Leia mais: https://www.scielo.br/j/cflo/a/cmSgxNWP8VC4WqmDFGb4cNv/#
+
+Já para a dendrometria, a árvore pode ser descrita por meio de atributos relacionados ao tronco ou à copa. Tanto o tronco quanto a copa podem ser descritos pelos respectivos diâmetro e a altura. Do ponto de vista funcional, uma árvore pode estar viva ou morta. E estando viva, espera-se que a árvore se desenvolva pelos diferentes estágios sucessionais: muda, jovem, adulto, reprodutivo, e finalmente senescente. 
+
+## Um objeto árvore
+
+O interessante de se ter uma definição clara e inequívoca, é que é possível a definição de um objeto que sempre que existr apresentará algumas características básicas. Para criar um objeto no R, existem diversos pacotes. mas aqui utilizaremos o pacote `R6`.
+
+```{r}
+require(R6)
+```
+No R, a criação do objeto demanda três componentes:
+
+- lista de atributos
+- função de inicialização (*initialize*)
+
+```
+objeto = R6Class("objeto",
+	public = list(...,
+		initialize = function(){}
+	)
+)	
+```
+
+Basicamente, a lista de atributos define quais são as características naturais do objeto e a função de inicialização define como estes atributos precisamconstruídos no momento da criação de um objeto.
+
+Com os conceitos discutidos acima, é possível propor um objeto para representar uma árvore. E sempre que uma árvore existir, necessariamente ela terá que ter os seguintes atributos:
+
+- folha
+- ramo
+- tronco
+- espécie
+- diametro do tronco
+- altura do tronco
+- diametro da copa
+- altura da copa
+- viva
+- estágio
+
+Uma vez que se reconhe os atributos inerentes a um objeto, é possível programar este objeto e garantir que toda vez ele seja criado, os atributos sejam naturalmente imputados. Note que não necessariamente o atributo precisa ser conhecido, mas existirá o espaço que que ele seja associado ao objeto.
+
+```{r}
+arvore = R6Class("arvore",
+	public = list(
+	  folha = NULL,
+	  ramo = NULL,
+	  tronco = NULL,
+		d_tronco = NULL,
+		h_tronco = NULL,
+		d_copa = NULL,
+		h_copa = NULL,
+		viva = NULL,
+		estagio = NULL,											
+		initialize = function(folha = NA,
+                      	  ramo = NA,
+                      	  tronco = NA,
+                      		d_tronco,
+                      		h_tronco,
+                      		d_copa,
+                      		h_copa,
+                      		estagio = NA,
+		                      viva = TRUE){
+  	  self$folha = folha
+  	  self$ramo = ramo
+  	  self$tronco = tronco
+  		self$d_tronco = d_tronco
+  		self$h_tronco = h_tronco
+  		self$d_copa = d_copa
+  		self$h_copa = h_copa
+  		self$viva = viva
+  		self$estagio = estagio
+		}
+	)
+)	
+```
+
+Uma árvore agora pode ser criada dentro do R informando alguns dos atributos naturais deste objeto. Uma árvore viva (que será chamada de `a1`), em seu estágio adulto, com diâmetro de trondo de 10 cm, altura de tronco de 23 metros, diâmetro de copa de 14 metros e altura de copa de 5 metros pode ser criada na memória do R com o seguinte comando:
+
+```{r}
+a1 = arvore$new(d_tronco = 10, h_tronco = 23, d_copa = 14, h_copa = 5, viva = TRUE, estagio = 'adulta')
+```
+
+
